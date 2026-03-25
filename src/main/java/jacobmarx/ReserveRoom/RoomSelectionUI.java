@@ -17,21 +17,17 @@ public class RoomSelectionUI {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        // Top panel (Back button)
+        // Top panel (Back button and register button)
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-        JButton backButton = new JButton("Back");
-        topPanel.add(backButton);
 
-        //Search Bar:
-        // Add horizontal "glue" to push the next component to the far right
-        topPanel.add(Box.createHorizontalGlue());
-        JTextField searchBar = new JTextField();
-        searchBar.setText("Type here...");
-        topPanel.add(searchBar);
-        JButton searchButton = new JButton("Search");
-        topPanel.add(searchButton);
+        JButton backButton = new JButton("<--");
+        topPanel.add(backButton);
+        topPanel.add(Box.createHorizontalGlue()); //force to right
+        JButton reserveButton = new JButton("Reserve Selected Rooms");
+        topPanel.add(reserveButton);
         frame.add(topPanel, BorderLayout.NORTH);
+
 
         //TODO: replace below with the csv reading logic
 
@@ -69,10 +65,24 @@ public class RoomSelectionUI {
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // Bottom panel (Reserve button)
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton reserveButton = new JButton("Reserve Selected Rooms");
-        bottomPanel.add(reserveButton);
+        // Bottom panel (search features)
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+
+        JTextField roomTypeBar = new JTextField();
+        roomTypeBar.setText("Room Type");
+        bottomPanel.add(roomTypeBar);
+        JTextField priceBar = new JTextField();
+        priceBar.setText("Price Maximum");
+        bottomPanel.add(priceBar);
+        JTextField startDateBar = new JTextField();
+        startDateBar.setText("Start Date (MM/DD/YYYY)");
+        bottomPanel.add(startDateBar);
+        JTextField endDateBar = new JTextField();
+        endDateBar.setText("End Date (MM/DD/YYYY)");
+        bottomPanel.add(endDateBar);
+        JButton searchButton = new JButton("Search");
+        bottomPanel.add(searchButton);
         frame.add(bottomPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
