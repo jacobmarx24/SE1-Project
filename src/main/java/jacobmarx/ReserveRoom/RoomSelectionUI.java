@@ -18,9 +18,19 @@ public class RoomSelectionUI {
         frame.setLayout(new BorderLayout());
 
         // Top panel (Back button)
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
         JButton backButton = new JButton("Back");
         topPanel.add(backButton);
+
+        //Search Bar:
+        // Add horizontal "glue" to push the next component to the far right
+        topPanel.add(Box.createHorizontalGlue());
+        JTextField searchBar = new JTextField();
+        searchBar.setText("Type here...");
+        topPanel.add(searchBar);
+        JButton searchButton = new JButton("Search");
+        topPanel.add(searchButton);
         frame.add(topPanel, BorderLayout.NORTH);
 
         //TODO: replace below with the csv reading logic
