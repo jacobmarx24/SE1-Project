@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class RoomSelectionUI {
 
+    //TODO: for testing, remove later
     public static void main(String[] args) {
         SwingUtilities.invokeLater(RoomSelectionUI::createUI);
     }
@@ -29,27 +30,28 @@ public class RoomSelectionUI {
         frame.add(topPanel, BorderLayout.NORTH);
 
 
-        //TODO: replace below with the csv reading logic
-
         // Table columns
         String[] columnNames = {
-                "Select", "Room Name", "Room Type", "Price", "Available Date"
+                "Select", "Room #", "Room Type", "Price", "Earliest Date", "Smoking"
         };
 
+        //TODO: replace below with the csv reading logic
         // Sample data (editable checkbox column)
+
+        //a room has reservation objects. search will give more detailed date windows
         Object[][] data = {
-                {false, "Ocean View Suite", "Suite", "$250", "2026-04-01"},
-                {false, "Standard Room", "Single", "$120", "2026-03-28"},
-                {false, "Deluxe King", "Double", "$180", "2026-03-30"},
-                {false, "Family Room", "Family", "$220", "2026-04-05"},
-                {false, "Penthouse", "Luxury", "$500", "2026-04-10"}
+                {false, "100", "Executive", "$250", "2026-04-01", false},
+                {false, "101", "Business", "$120", "2026-03-28", false},
+                {false, "102", "Comfort", "$180", "2026-03-30", true},
+                {false, "103", "Economy", "$220", "2026-04-05", false},
+                {false, "104", "Economy", "$500", "2026-04-10", true}
         };
 
         // Table model
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             @Override
             public Class<?> getColumnClass(int column) {
-                if (column == 0) return Boolean.class; // checkbox column
+                if (column == 0 || column == 5) return Boolean.class; // checkbox column
                 return String.class;
             }
 
@@ -72,9 +74,6 @@ public class RoomSelectionUI {
         JTextField roomTypeBar = new JTextField();
         roomTypeBar.setText("Room Type");
         bottomPanel.add(roomTypeBar);
-        JTextField priceBar = new JTextField();
-        priceBar.setText("Price Maximum");
-        bottomPanel.add(priceBar);
         JTextField startDateBar = new JTextField();
         startDateBar.setText("Start Date (MM/DD/YYYY)");
         bottomPanel.add(startDateBar);
