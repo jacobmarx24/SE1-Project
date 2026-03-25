@@ -6,12 +6,7 @@ import java.awt.*;
 
 public class RoomSelectionUI {
 
-    //TODO: for testing, remove later
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(RoomSelectionUI::createUI);
-    }
-
-    private static void createUI() {
+    public static void createUI() {
         JFrame frame = new JFrame("Room Reservation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
@@ -39,13 +34,7 @@ public class RoomSelectionUI {
         // Sample data (editable checkbox column)
 
         //a room has reservation objects. search will give more detailed date windows
-        Object[][] data = {
-                {false, "100", "Executive", "$250", "2026-04-01", false},
-                {false, "101", "Business", "$120", "2026-03-28", false},
-                {false, "102", "Comfort", "$180", "2026-03-30", true},
-                {false, "103", "Economy", "$220", "2026-04-05", false},
-                {false, "104", "Economy", "$500", "2026-04-10", true}
-        };
+        Object[][] data = loadCols();
 
         // Table model
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
@@ -86,4 +75,22 @@ public class RoomSelectionUI {
 
         frame.setVisible(true);
     }
+
+    //Helper method which reads rooms.csv and reservations.csv, updating the cols accordingly
+    private static Object[][] loadCols(){
+        //PLACEHOLDER
+        Object[][] data = {
+                {false, "100", "Executive", "$250", "2026-04-01", false},
+                {false, "101", "Business", "$120", "2026-03-28", false},
+                {false, "102", "Comfort", "$180", "2026-03-30", true},
+                {false, "103", "Economy", "$220", "2026-04-05", false},
+                {false, "104", "Economy", "$500", "2026-04-10", true}
+        };
+        //todo: based off of csv data, make a Object[][]; Call the room and reservation service
+
+        return data;
+    }
 }
+//TODO: roomService object that stores rooms. This will read from the csv
+
+//TODO: reservationService. Same thing for reservations
