@@ -1,0 +1,6 @@
+NUMBER, ROOMTYPE, PRICE, SMOKING
+100,Executive,250,false
+101,Business,120,false
+102,Comfort,180,true
+103,Economy,220,false
+104,Economy,500,true
