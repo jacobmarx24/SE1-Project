@@ -1,5 +1,7 @@
 package jacobmarx.RoomsAndReservation;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class RoomService {
@@ -9,7 +11,12 @@ public class RoomService {
         rooms = new ArrayList<>();
 
         //Read in the csv to fill rooms
-        Scanner scanner = new Scanner(filename);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File(filename));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         scanner.nextLine(); //skip first line
         //FORMAT: NUMBER, ROOMTYPE, PRICE, SMOKING
         while (scanner.hasNext()){

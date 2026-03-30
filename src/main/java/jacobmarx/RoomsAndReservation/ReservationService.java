@@ -2,6 +2,8 @@ package jacobmarx.RoomsAndReservation;
 
 import jacobmarx.RoomsAndReservation.Reservation;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +18,12 @@ public class ReservationService {
         reservations = new ArrayList<>();
 
         //Read in the csv to fill reservations
-        Scanner scanner = new Scanner(filename);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File(filename));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         scanner.nextLine(); //skip first line
         //FORMAT: StartDate, EndDate, ROOM#s...
         while (scanner.hasNext()){

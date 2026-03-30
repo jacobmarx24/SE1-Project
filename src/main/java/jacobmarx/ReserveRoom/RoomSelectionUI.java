@@ -1,8 +1,12 @@
 package jacobmarx.ReserveRoom;
 
+import jacobmarx.RoomsAndReservation.Room;
+import jacobmarx.RoomsAndReservation.RoomService;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class RoomSelectionUI {
 
@@ -88,9 +92,20 @@ public class RoomSelectionUI {
         };
         //todo: based off of csv data, make a Object[][]; Call the room and reservation service
 
-        return data;
+        RoomService rs = new RoomService("rooms.csv");
+        List<Room> rooms = rs.getRooms();
+        //Turn this room list into a Object[][]
+        Object[][] d =  new Object[rooms.size()][6];
+        for (int i = 0; i < rooms.size(); i++) {
+            data[i][0] = false;
+            data[i][1] = rooms.get(i).getNumber();
+            data[i][2] = rooms.get(i).getRoomType();
+            data[i][3] = rooms.get(i).getPrice();
+            //Determine the earliest date based off of the reservations
+            data[i][4] = "test";
+            data[i][5] = rooms.get(i).isSmoking();
+        }
+
+        return d;
     }
 }
-//TODO: roomService object that stores rooms. This will read from the csv
-
-//TODO: reservationService. Same thing for reservations
