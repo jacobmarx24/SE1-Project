@@ -83,19 +83,18 @@ public class RoomSelectionUI {
     //Helper method which reads rooms.csv and reservations.csv, updating the cols accordingly
     private static Object[][] loadCols(){
         //PLACEHOLDER
-        Object[][] data = {
+        Object[][] d = {
                 {false, "100", "Executive", "$250", "2026-04-01", false},
                 {false, "101", "Business", "$120", "2026-03-28", false},
                 {false, "102", "Comfort", "$180", "2026-03-30", true},
                 {false, "103", "Economy", "$220", "2026-04-05", false},
                 {false, "104", "Economy", "$500", "2026-04-10", true}
         };
-        //todo: based off of csv data, make a Object[][]; Call the room and reservation service
 
         RoomService rs = new RoomService("rooms.csv");
         List<Room> rooms = rs.getRooms();
         //Turn this room list into a Object[][]
-        Object[][] d =  new Object[rooms.size()][6];
+        Object[][] data =  new Object[rooms.size()][6];
         for (int i = 0; i < rooms.size(); i++) {
             data[i][0] = false;
             data[i][1] = rooms.get(i).getNumber();
@@ -106,6 +105,6 @@ public class RoomSelectionUI {
             data[i][5] = rooms.get(i).isSmoking();
         }
 
-        return d;
+        return data;
     }
 }
