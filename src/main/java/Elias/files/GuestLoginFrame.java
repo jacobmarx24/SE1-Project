@@ -14,7 +14,7 @@ public class GuestLoginFrame extends JFrame {
     private JLabel         lblError;
 
     public GuestLoginFrame() {
-        UITheme.applyDefaults(this, "Guest Login — Aura Hotel", 420, 520);
+        UITheme.applyDefaults(this, "Guest Login — Aura Hotel", 420, 560);
         setLayout(new BorderLayout());
         getContentPane().setBackground(UITheme.BG);
         buildUI();
