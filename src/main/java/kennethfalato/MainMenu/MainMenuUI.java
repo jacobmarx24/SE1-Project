@@ -1,6 +1,9 @@
 package kennethfalato.MainMenu;
 
 
+import Elias.files.GuestLoginFrame;
+import jacobmarx.ReserveRoom.RoomSelectionUI;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -40,6 +43,15 @@ public class MainMenuUI {
         frame.setVisible(true);
 
         //TODO: add logic for buttons
+        logOut.addActionListener(e -> {
+            frame.dispose();
+            new GuestLoginFrame();
+        });
+
+        searchRoom.addActionListener(e -> {
+            frame.dispose();
+            RoomSelectionUI.createUI();
+        });
 
     }
 

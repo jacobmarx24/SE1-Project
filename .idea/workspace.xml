@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4466bb75-a7c8-45a0-9445-d80beb22a770" name="Changes" comment="merged login page">
+    <list default="true" id="4466bb75-a7c8-45a0-9445-d80beb22a770" name="Changes" comment="login page connected with main menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/GuestLoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/GuestLoginFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/clerks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/clerks.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/guests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/guests.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/AdminLoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/AdminLoginFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jacobmarx/ReserveRoom/RoomSelectionUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/ReserveRoom/RoomSelectionUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/MainMenuUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/MainMenuUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -256,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775090273797</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="login page connected with main menu">
+      <option name="closed" value="true" />
+      <created>1775091475974</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1775091475974</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -272,7 +278,8 @@
     <MESSAGE value="loadCols completed" />
     <MESSAGE value="implemented searching and reserving rooms" />
     <MESSAGE value="merged login page" />
-    <option name="LAST_COMMIT_MESSAGE" value="merged login page" />
+    <MESSAGE value="login page connected with main menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="login page connected with main menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

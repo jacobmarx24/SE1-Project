@@ -1,5 +1,7 @@
 package Elias.files;
 
+import jacobmarx.RoomsAndReservation.ModifyRoomStatesUI;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -133,6 +135,7 @@ public class AdminLoginFrame extends JFrame {
                 // Admin → open Create Clerk screen
                 dispose();
                 new CreateClerkFrame(clerk);
+                ModifyRoomStatesUI.openWindow("rooms.csv");
             } else {
                 // Regular clerk
                 JOptionPane.showMessageDialog(this,
@@ -140,6 +143,7 @@ public class AdminLoginFrame extends JFrame {
                     "Login Successful", JOptionPane.INFORMATION_MESSAGE);
                 // TODO: open clerk dashboard
                 dispose();
+                ModifyRoomStatesUI.openWindow("rooms.csv");
             }
         }
     }

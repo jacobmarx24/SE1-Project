@@ -3,6 +3,7 @@ package jacobmarx.ReserveRoom;
 import jacobmarx.RoomsAndReservation.ReservationService;
 import jacobmarx.RoomsAndReservation.Room;
 import jacobmarx.RoomsAndReservation.RoomService;
+import kennethfalato.MainMenu.MainMenuUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +35,13 @@ public class RoomSelectionUI {
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
 
         JButton backButton = new JButton("<--");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                MainMenuUI.createUI();
+            }
+        });
         topPanel.add(backButton);
         topPanel.add(Box.createHorizontalGlue()); //force to right
         JButton reserveButton = new JButton("Reserve Selected Rooms");
