@@ -8,7 +8,7 @@ public class MainMenuUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainMenuUI::createUI);
     }
-    private static void createUI() {
+    public static void createUI() {
         JFrame frame = new JFrame("Main Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);

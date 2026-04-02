@@ -1,13 +1,23 @@
-import jacobmarx.ReserveRoom.RoomSelectionUI;
-import jacobmarx.RoomsAndReservation.ReservationService;
-import jacobmarx.RoomsAndReservation.RoomService;
+import Elias.files.AdminLoginFrame;
+import Elias.files.CSVHelper;
+import Elias.files.GuestLoginFrame;
+
 import javax.swing.*;
 
 public class Main {
-    public static void main(){
-        //Create the ReservationService and RoomService
-        //TODO: UI controller class
-        //line below decides the opening UI. currently set to RoomSelection, change to main menu at some point
-        SwingUtilities.invokeLater(RoomSelectionUI::createUI);
+    public static void main(String[] args) {
+        // Use system look and feel as a base, then override with UITheme
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception ignored) {}
+
+        // Init CSV files (creates them if they don't exist, seeds admin)
+        CSVHelper.init();
+
+        // Launch both login windows on the EDT
+        SwingUtilities.invokeLater(() -> {
+            new GuestLoginFrame();   // Guest login (with register link)
+            new AdminLoginFrame();   // Staff / admin login
+        });
     }
 }

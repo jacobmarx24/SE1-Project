@@ -1,5 +1,7 @@
 package Elias.files;
 
+import kennethfalato.MainMenu.MainMenuUI;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -131,6 +133,7 @@ public class GuestLoginFrame extends JFrame {
                 "Welcome back, " + guest[1] + "!",
                 "Login Successful", JOptionPane.INFORMATION_MESSAGE);
             // TODO: open guest dashboard
+            MainMenuUI.createUI();
             dispose();
         }
     }
