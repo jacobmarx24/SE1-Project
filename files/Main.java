@@ -8,7 +8,7 @@ public class Main {
         } catch (Exception ignored) {}
 
         // Init CSV files (creates them if they don't exist, seeds admin)
-        CSVHelper.init();
+        DatabaseHelper.init();
 
         // Launch both login windows on the EDT
         SwingUtilities.invokeLater(() -> {

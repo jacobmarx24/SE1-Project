@@ -1,3 +1,0 @@
-id,fullName,username,password,role,permissions,createdAt
-1775084881458,System Admin,admin,admin123,admin,manage_clerks|view_reports|manage_bookings,2026-04-01
-1775085279785,Elias Tovar,etovar01,Password1,clerk,view_bookings|manage_bookings|check_in_out|view_reports|manage_rooms,2026-04-01

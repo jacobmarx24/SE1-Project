@@ -172,7 +172,7 @@ public class GuestRegisterFrame extends JFrame {
         }
         if (username.isEmpty()) {
             errUsername.setText("Username is required."); ok = false;
-        } else if (CSVHelper.guestUsernameExists(username)) {
+        } else if (DatabaseHelper.guestUsernameExists(username)) {
             errUsername.setText("This username is already taken."); ok = false;
         }
         if (password.isEmpty()) {
@@ -207,7 +207,7 @@ public class GuestRegisterFrame extends JFrame {
 
         if (!validate(fullName, username, password, confirm, email, phone)) return;
 
-        CSVHelper.addGuest(fullName, username, password, email, phone);
+        DatabaseHelper.addGuest(fullName, username, password, email, phone);
 
         JOptionPane.showMessageDialog(this,
             "Account created! You can now sign in.",
