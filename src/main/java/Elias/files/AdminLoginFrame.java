@@ -123,7 +123,7 @@ public class AdminLoginFrame extends JFrame {
             return;
         }
 
-        String[] clerk = CSVHelper.findClerk(username, password);
+        String[] clerk = DatabaseHelper.findClerk(username, password);
         if (clerk == null) {
             lblError.setText("Incorrect username or password.");
             tfPassword.setText("");

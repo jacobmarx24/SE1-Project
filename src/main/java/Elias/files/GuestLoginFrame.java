@@ -123,7 +123,7 @@ public class GuestLoginFrame extends JFrame {
             return;
         }
 
-        String[] guest = CSVHelper.findGuest(username, password);
+        String[] guest = DatabaseHelper.findGuest(username, password);
         if (guest == null) {
             lblError.setText("Incorrect username or password.");
             tfPassword.setText("");

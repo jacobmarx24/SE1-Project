@@ -290,7 +290,7 @@ public class CreateClerkFrame extends JFrame {
 
     private void refreshTable() {
         tableModel.setRowCount(0);
-        List<String[]> rows = CSVHelper.readAll("clerks.csv");
+        List<String[]> rows = DatabaseHelper.readAll("clerks.csv");
         for (String[] r : rows) {
             if (r.length > 4)
                 tableModel.addRow(new Object[]{ r[1], r[2], r[4] });
@@ -310,7 +310,7 @@ public class CreateClerkFrame extends JFrame {
         if (fullName.isEmpty()) { errFullName.setText("Full name is required."); ok = false; }
         if (username.isEmpty()) {
             errUsername.setText("Username is required."); ok = false;
-        } else if (CSVHelper.clerkUsernameExists(username)) {
+        } else if (DatabaseHelper.clerkUsernameExists(username)) {
             errUsername.setText("This username is already taken."); ok = false;
         }
         if (password.isEmpty()) {
@@ -335,7 +335,7 @@ public class CreateClerkFrame extends JFrame {
 
         if (!ok) return;
 
-        CSVHelper.addClerk(fullName, username, password, role, perms.toString());
+        DatabaseHelper.addClerk(fullName, username, password, role, perms.toString());
         refreshTable();
         clearForm();
 
