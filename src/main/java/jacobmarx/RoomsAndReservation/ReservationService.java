@@ -28,7 +28,7 @@ public class ReservationService {
             throw new RuntimeException(e);
         }
         scanner.nextLine(); //skip first line
-        //FORMAT: StartDate, EndDate, ROOM#s...
+        //FORMAT: STARTDATE, ENDDATE, USERNAME, ROOM#s...
         while (scanner.hasNext()){
             String[] parts = scanner.nextLine().split(",");
             //turn the start and endDate into Date objects
@@ -43,11 +43,12 @@ public class ReservationService {
                 e.printStackTrace();
                 System.exit(0);
             }
+            String username = parts[2];
             List<Integer> roomIds = new ArrayList<>();
-            for (int i = 2; i < parts.length; i++){
-                roomIds.add(Integer.parseInt(parts[i]));
+            for (int i = 3; i < parts.length; i++){
+                roomIds.add(Integer.parseInt(parts[i].trim()));
             }
-            addReservation(beginDate, endDate, roomIds);
+            addReservation(username, beginDate, endDate, roomIds);
         }
 
     }
@@ -56,8 +57,8 @@ public class ReservationService {
         return reservations;
     }
 
-    public void addReservation(Date startDate, Date endDate, List<Integer> roomNums){
-        reservations.add(new Reservation(startDate, endDate, roomNums));
+    public void addReservation(String username, Date startDate, Date endDate, List<Integer> roomNums){
+        reservations.add(new Reservation(username, startDate, endDate, roomNums));
     }
 
     public void addReservation(Reservation Reservation){
@@ -88,13 +89,13 @@ public class ReservationService {
         return false;
     }
 
-    public void updateReservationsCSV(Date startDate, Date endDate, List<Integer> roomIds) {
+    public void updateReservationsCSV(String username, Date startDate, Date endDate, List<Integer> roomIds) {
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
         String startDateStr = format.format(startDate);
         String endDateStr = format.format(endDate);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(startDateStr).append(",").append(endDateStr);
+        sb.append(startDateStr).append(",").append(endDateStr).append(",").append(username);
         for (Integer roomId : roomIds) {
             sb.append(",").append(roomId);
         }

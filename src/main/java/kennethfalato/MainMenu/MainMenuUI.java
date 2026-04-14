@@ -8,9 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuUI {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainMenuUI::createUI);
-    }
+    //public static void main(String[] args) {
+   //     SwingUtilities.invokeLater(MainMenuUI::createUI);
+    //}
     public static void createUI() {
         JFrame frame = new JFrame("Main Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

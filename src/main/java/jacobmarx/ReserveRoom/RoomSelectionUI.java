@@ -23,6 +23,8 @@ public class RoomSelectionUI {
     private static JTextField startDateBar;
     private static JTextField endDateBar;
 
+    public static String currentUsername = "guest";
+
     public static void createUI() {
         JFrame frame = new JFrame("Room Reservation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -209,7 +211,7 @@ public class RoomSelectionUI {
             }
 
             ReservationService resService = new ReservationService("reservations.csv");
-            resService.updateReservationsCSV(startDate, endDate, selectedRoomIds);
+            resService.updateReservationsCSV(currentUsername, startDate, endDate, selectedRoomIds);
             JOptionPane.showMessageDialog(null, "Reservation successful!");
         }
     }

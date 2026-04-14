@@ -5,14 +5,24 @@ import java.util.List;
 import java.util.Objects;
 
 public class Reservation {
+    private String username;
     private List<Integer> roomNum;
     private Date startDate;
     private Date endDate;
 
-    public Reservation(Date startDate, Date endDate, List<Integer> roomNum) {
+    public Reservation(String username, Date startDate, Date endDate, List<Integer> roomNum) {
+        this.username = username;
         this.endDate = endDate;
         this.startDate = startDate;
         this.roomNum = roomNum;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Integer> getRoomNums() {
@@ -37,14 +47,15 @@ public class Reservation {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reservation that = (Reservation) o;
-        return roomNum == that.roomNum && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate);
+        return Objects.equals(roomNum, that.roomNum) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(username, that.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(roomNum);
+        return Objects.hash(roomNum, startDate, endDate, username);
     }
 
     public void setEndDate(Date endDate) {
