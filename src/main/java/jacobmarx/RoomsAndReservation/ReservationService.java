@@ -65,6 +65,20 @@ public class ReservationService {
         reservations.add(Reservation);
     }
 
+    public void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
+    }
+
+    public List<Reservation> getReservationsByUsername(String username) {
+        List<Reservation> result = new ArrayList<>();
+        for (Reservation res : reservations) {
+            if (res.getUsername().equals(username)) {
+                result.add(res);
+            }
+        }
+        return result;
+    }
+
     public boolean isReserved(int roomId, Date startDate, Date endDate) {
         for (Reservation res : reservations) {
             if (res.getRoomNums().contains(roomId)) {
@@ -82,6 +96,37 @@ public class ReservationService {
         for (Reservation res : reservations) {
             if (res.getRoomNums().contains(roomId)) {
                 if (!d.before(res.getStartDate()) && !d.after(res.getEndDate())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void saveAllReservations() {
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        try (PrintWriter pw = new PrintWriter(new FileWriter("reservations.csv"))) {
+            pw.println("STARTDATE, ENDDATE, USERNAME, ROOM#s");
+            for (Reservation res : reservations) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(format.format(res.getStartDate())).append(",")
+                  .append(format.format(res.getEndDate())).append(",")
+                  .append(res.getUsername());
+                for (Integer roomId : res.getRoomNums()) {
+                    sb.append(",").append(roomId);
+                }
+                pw.println(sb.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isReservedExcluding(int roomId, Date startDate, Date endDate, Reservation excluding) {
+        for (Reservation res : reservations) {
+            if (res.equals(excluding)) continue;
+            if (res.getRoomNums().contains(roomId)) {
+                if (startDate.compareTo(res.getEndDate()) <= 0 && endDate.compareTo(res.getStartDate()) >= 0) {
                     return true;
                 }
             }

@@ -42,7 +42,11 @@ public class MainMenuUI {
         frame.add(gidL, BorderLayout.CENTER);
         frame.setVisible(true);
 
-        //TODO: add logic for buttons
+        resInfo.addActionListener(e -> {
+            frame.dispose();
+            jacobmarx.ReserveRoom.ReservationInfoUI.createUI();
+        });
+
         logOut.addActionListener(e -> {
             frame.dispose();
             new GuestLoginFrame();
@@ -52,7 +56,6 @@ public class MainMenuUI {
             frame.dispose();
             RoomSelectionUI.createUI();
         });
-
     }
 
 }
