@@ -118,7 +118,7 @@ public class RoomSelectionUI {
         String endDateStr = endDateBar.getText();
         if ("End Date (MM/DD/YYYY)".equals(endDateStr)) endDateStr = "";
 
-        RoomService rs = new RoomService("rooms.csv");
+        RoomService rs = new RoomService("rooms.xml");
         ReservationService resService = new ReservationService("reservations.csv");
         List<Room> allRooms = rs.getRooms();
         List<Room> filteredRooms = new ArrayList<>();
@@ -247,9 +247,9 @@ public class RoomSelectionUI {
         return new Date[]{startDate, endDate};
     }
 
-    //Helper method which reads rooms.csv and reservations.csv, updating the cols accordingly
+    //Helper method which reads rooms.xml and reservations.csv, updating the cols accordingly
     private static Object[][] loadCols(){
-        RoomService rs = new RoomService("rooms.csv");
+        RoomService rs = new RoomService("rooms.xml");
         ReservationService resService = new ReservationService("reservations.csv");
         List<Room> rooms = rs.getRooms();
         

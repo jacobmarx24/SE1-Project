@@ -17,8 +17,8 @@ public class ModifyRoomStatesUI {
 
     private int selectedOriginalRoomNumber = -1;
 
-    public ModifyRoomStatesUI(String csvFileName) {
-        roomService = new RoomService(csvFileName);
+    public ModifyRoomStatesUI(String xmlFileName) {
+        roomService = new RoomService(xmlFileName);
 
         frame = new JFrame("Modify Room States");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -63,7 +63,7 @@ public class ModifyRoomStatesUI {
         JButton updateButton = new JButton("Update Room");
         JButton deleteButton = new JButton("Delete Room");
         JButton clearButton = new JButton("Clear");
-        JButton saveButton = new JButton("Save to CSV");
+        JButton saveButton = new JButton("Save to XML");
 
         buttonPanel.add(loadButton);
         buttonPanel.add(addButton);
@@ -88,8 +88,8 @@ public class ModifyRoomStatesUI {
         frame.setVisible(true);
     }
 
-    public static void openWindow(String csvFileName) {
-        SwingUtilities.invokeLater(() -> new ModifyRoomStatesUI(csvFileName));
+    public static void openWindow(String xmlFileName) {
+        SwingUtilities.invokeLater(() -> new ModifyRoomStatesUI(xmlFileName));
     }
 
     private void refreshTable() {
@@ -187,7 +187,7 @@ public class ModifyRoomStatesUI {
 
     private void saveRooms() {
         roomService.saveRooms();
-        JOptionPane.showMessageDialog(frame, "Changes saved to rooms.csv.");
+        JOptionPane.showMessageDialog(frame, "Changes saved to rooms.xml.");
     }
 
     private Room buildRoomFromForm() {

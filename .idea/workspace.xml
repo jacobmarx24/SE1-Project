@@ -5,15 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4466bb75-a7c8-45a0-9445-d80beb22a770" name="Changes" comment="login page connected with main menu">
+      <change afterPath="$PROJECT_DIR$/rooms.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_4_1_26,_6_42 PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_4_1_26__6_42PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/AdminLoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/AdminLoginFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jacobmarx/ReserveRoom/RoomSelectionUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/ReserveRoom/RoomSelectionUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/MainMenuUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/MainMenuUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/ModifyRoomStatesUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/ModifyRoomStatesUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/RoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="58" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -42,6 +49,10 @@
     &quot;accountId&quot;: &quot;7ad8bd3d-90b6-4567-b8e7-b349cd4a6a59&quot;
   }
 }</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -60,14 +71,23 @@
     "Application.MainMenuUI.executor": "Run",
     "Application.RoomSelectionUI.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "combined-branch",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "to.speed.mode.migration.done": "true"
+    "last_opened_file_path": "C:/Users/Phili/IdeaProjects/groupProject/SE1-Project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -147,6 +167,7 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.240" />
       </set>
     </attachedChunks>
   </component>
@@ -157,6 +178,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1774365275390</updated>
+      <workItem from="1777309940759" duration="1690000" />
     </task>
     <task id="LOCAL-00001" summary="Starter Maven files">
       <option name="closed" value="true" />
@@ -264,6 +286,9 @@
     </task>
     <option name="localTasksCounter" value="14" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Starter Maven files" />

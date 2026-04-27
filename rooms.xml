@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <room>
+        <number>100</number>
+        <roomType>Executive</roomType>
+        <price>250.00</price>
+        <smoking>false</smoking>
+    </room>
+    <room>
+        <number>101</number>
+        <roomType>Business</roomType>
+        <price>120.00</price>
+        <smoking>false</smoking>
+    </room>
+    <room>
+        <number>102</number>
+        <roomType>Comfort</roomType>
+        <price>180.00</price>
+        <smoking>true</smoking>
+    </room>
+    <room>
+        <number>103</number>
+        <roomType>Economy</roomType>
+        <price>220.00</price>
+        <smoking>false</smoking>
+    </room>
+    <room>
+        <number>104</number>
+        <roomType>Economy</roomType>
+        <price>500.00</price>
+        <smoking>true</smoking>
+    </room>
+</rooms>
