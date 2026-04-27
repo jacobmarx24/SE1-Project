@@ -138,12 +138,8 @@ public class AdminLoginFrame extends JFrame {
                 ModifyRoomStatesUI.openWindow("rooms.csv");
             } else {
                 // Regular clerk
-                JOptionPane.showMessageDialog(this,
-                    "Welcome, " + clerk[1] + " (" + role + ")",
-                    "Login Successful", JOptionPane.INFORMATION_MESSAGE);
-                // TODO: open clerk dashboard
                 dispose();
-                ModifyRoomStatesUI.openWindow("rooms.csv");
+                new ClerkMenuFrame();
             }
         }
     }

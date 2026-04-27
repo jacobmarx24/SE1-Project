@@ -28,9 +28,10 @@ public class ReservationService {
             throw new RuntimeException(e);
         }
         scanner.nextLine(); //skip first line
-        //FORMAT: STARTDATE, ENDDATE, USERNAME, ROOM#s...
+        //FORMAT: STARTDATE, ENDDATE, USERNAME, CHECKEDIN, ROOM#s...
         while (scanner.hasNext()){
             String[] parts = scanner.nextLine().split(",");
+            if (parts.length < 5) continue; // Basic validation
             //turn the start and endDate into Date objects
             SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
             Date beginDate = new Date();
@@ -44,11 +45,12 @@ public class ReservationService {
                 System.exit(0);
             }
             String username = parts[2];
+            boolean checkedIn = Boolean.parseBoolean(parts[3].trim());
             List<Integer> roomIds = new ArrayList<>();
-            for (int i = 3; i < parts.length; i++){
+            for (int i = 4; i < parts.length; i++){
                 roomIds.add(Integer.parseInt(parts[i].trim()));
             }
-            addReservation(username, beginDate, endDate, roomIds);
+            addReservation(new Reservation(username, beginDate, endDate, roomIds, checkedIn));
         }
 
     }
@@ -106,12 +108,13 @@ public class ReservationService {
     public void saveAllReservations() {
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
         try (PrintWriter pw = new PrintWriter(new FileWriter("reservations.csv"))) {
-            pw.println("STARTDATE, ENDDATE, USERNAME, ROOM#s");
+            pw.println("STARTDATE, ENDDATE, USERNAME, CHECKEDIN, ROOM#s");
             for (Reservation res : reservations) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(format.format(res.getStartDate())).append(",")
                   .append(format.format(res.getEndDate())).append(",")
-                  .append(res.getUsername());
+                  .append(res.getUsername()).append(",")
+                  .append(res.isCheckedIn());
                 for (Integer roomId : res.getRoomNums()) {
                     sb.append(",").append(roomId);
                 }
@@ -140,7 +143,7 @@ public class ReservationService {
         String endDateStr = format.format(endDate);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(startDateStr).append(",").append(endDateStr).append(",").append(username);
+        sb.append(startDateStr).append(",").append(endDateStr).append(",").append(username).append(",false");
         for (Integer roomId : roomIds) {
             sb.append(",").append(roomId);
         }

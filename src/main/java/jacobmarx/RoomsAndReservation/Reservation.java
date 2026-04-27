@@ -9,12 +9,26 @@ public class Reservation {
     private List<Integer> roomNum;
     private Date startDate;
     private Date endDate;
+    private boolean checkedIn;
 
     public Reservation(String username, Date startDate, Date endDate, List<Integer> roomNum) {
+        this(username, startDate, endDate, roomNum, false);
+    }
+
+    public Reservation(String username, Date startDate, Date endDate, List<Integer> roomNum, boolean checkedIn) {
         this.username = username;
         this.endDate = endDate;
         this.startDate = startDate;
         this.roomNum = roomNum;
+        this.checkedIn = checkedIn;
+    }
+
+    public boolean isCheckedIn() {
+        return checkedIn;
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.checkedIn = checkedIn;
     }
 
     public String getUsername() {
@@ -50,12 +64,12 @@ public class Reservation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reservation that = (Reservation) o;
-        return Objects.equals(roomNum, that.roomNum) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(username, that.username);
+        return checkedIn == that.checkedIn && Objects.equals(roomNum, that.roomNum) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(username, that.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roomNum, startDate, endDate, username);
+        return Objects.hash(roomNum, startDate, endDate, username, checkedIn);
     }
 
     public void setEndDate(Date endDate) {
