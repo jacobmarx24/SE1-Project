@@ -2,7 +2,7 @@ package Shop;
 
 import java.util.*;
 public class ShoppingCart {
-    private  List<Product> products = new ArrayList();
+    private static List<Product> products = new ArrayList();
     private double total = 0;
 
 

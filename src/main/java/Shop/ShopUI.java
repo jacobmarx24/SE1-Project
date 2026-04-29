@@ -3,41 +3,27 @@ package Shop;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
-import java.util.List;
-import java.util.ArrayList;
-
-
+import java.io.PrintWriter;
 
 
 public class ShopUI {
 
-
-  private static DefaultTableModel tableModel;
+    private static DefaultTableModel tableModel;
     private static JTextField productId;
     private static JTextField productName;
-    private static JTextField productPrice;
-    private static JTextField productAvailability;
     private static JTextField minPrice;
     private static JTextField maxPrice;
-    private static JComboBox<String> availabilityBox;
     public static ShoppingCart cart = new ShoppingCart();
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ShopUI::createUI);
     }
-
-
 
     private static List<Product> allProducts = new ArrayList<>();
 
@@ -49,14 +35,18 @@ public class ShopUI {
         frame.setLayout(new BorderLayout());
 
         String[] columnNames = {
-                "Select", "ID", "Name", "Price", "Availability"
+                "Select", "ID", "Name", "Price", "Stock"
         };
 
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public Class<?> getColumnClass(int column) {
-                if (column == 0 || column == 4) return Boolean.class;
-                if (column == 3) return Double.class;
+                if (column == 0)
+                    return Boolean.class;
+                if (column == 3)
+                    return Double.class;
+                if(column == 4)
+                    return Integer.class;
                 return String.class;
             }
 
@@ -99,31 +89,41 @@ public class ShopUI {
             productName.setText("Name");
             minPrice.setText("Min Price");
             maxPrice.setText("Max Price");
-            availabilityBox.setSelectedIndex(0);
             updateTable(allProducts);
         });
 
         JButton addToCart = new JButton("Add");
-            addToCart.addActionListener(e -> {
-        
-                int addedCount = 0;
-                for (int i = 0; i < tableModel.getRowCount(); i++) {
-        Boolean selected = (Boolean) tableModel.getValueAt(i, 0);
+        addToCart.addActionListener(e -> {
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                Boolean selected = (Boolean) tableModel.getValueAt(i, 0);
+                Integer stockNum = Integer.parseInt(tableModel.getValueAt(i,4).toString());
 
-        if (selected != null && selected) {
-            int id = Integer.parseInt(tableModel.getValueAt(i, 1).toString());
-            String name = tableModel.getValueAt(i, 2).toString();
-            double price = Double.parseDouble(tableModel.getValueAt(i, 3).toString());
-            boolean available = Boolean.parseBoolean(tableModel.getValueAt(i, 4).toString());
+                if(selected != null && selected) {
+                 if(stockNum==0){
+                    JOptionPane.showMessageDialog(frame, "Item is not in stock");
+                  
+                }
+                else{                   
+                    int id = Integer.parseInt(tableModel.getValueAt(i, 1).toString());
+                    String name = tableModel.getValueAt(i, 2).toString();
+                    double price = Double.parseDouble(tableModel.getValueAt(i, 3).toString());
+                   int inStock = Integer.parseInt(tableModel.getValueAt(i,4).toString());
 
-            Product product = new Product(id, name, price, available);
+                    Product product = new Product(id, name, price, inStock);
+                    for(Product p: allProducts){
+                        if(id==p.getId()){
+                            p.setInStock(inStock-1);
+                        }
+                    }
+                    tableModel.setValueAt(false, i, 0);
+                    
+                    cart.addProduct(product);
+                }
+                }
 
-
-            tableModel.setValueAt(false, i, 0);
-            addedCount++;
-            cart.addProduct(product);
-        }
-    }
+            }
+            updateTable(allProducts);
+            JOptionPane.showMessageDialog(frame, "Items successfully added to cart");
         });
 
         bottomPanel.add(productId);
@@ -138,16 +138,15 @@ public class ShopUI {
 
         viewCartButton.addActionListener(e -> {
             frame.dispose();
-            CartUI.createUI(cart);
+            CartUI.createUI(cart, allProducts);
         });
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topPanel.add(viewCartButton);
 
         frame.add(bottomPanel, BorderLayout.SOUTH);
-        frame.add(topPanel,BorderLayout.NORTH);
+        frame.add(topPanel, BorderLayout.NORTH);
 
         frame.setVisible(true);
-
 
     }
 
@@ -170,28 +169,36 @@ public class ShopUI {
                 int id = Integer.parseInt(data[0]);
                 String name = data[1];
                 double price = Double.parseDouble(data[2]);
-                boolean availability = Boolean.parseBoolean(data[3]);
+                int inStock = Integer.parseInt(data[3]);
 
-                allProducts.add(new Product(id, name, price, availability));
+                allProducts.add(new Product(id, name, price, inStock));
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
     }
-}
 
     private static void performSearch() {
         String idSearch = productId.getText();
-        if ("ID".equals(idSearch)) idSearch = "";
+        if ("ID".equals(idSearch)){
+            idSearch = "";
+        }
 
         String nameSearch = productName.getText();
-        if ("Name".equals(nameSearch)) nameSearch = "";
+        if ("Name".equals(nameSearch)){
+            nameSearch = "";
+        }
 
         String minPriceText = minPrice.getText();
-        if ("Min Price".equals(minPriceText)) minPriceText = "";
+        if ("Min Price".equals(minPriceText)){
+            minPriceText = "";
+        }
 
         String maxPriceText = maxPrice.getText();
-        if ("Max Price".equals(maxPriceText)) maxPriceText = "";
+        if ("Max Price".equals(maxPriceText)){
+            maxPriceText = "";
+        }
 
         Double min = null;
         Double max = null;
@@ -209,33 +216,23 @@ public class ShopUI {
             return;
         }
 
-        String availabilityChoice = availabilityBox.getSelectedItem().toString();
 
         List<Product> filteredProducts = new ArrayList<>();
 
         for (Product product : allProducts) {
-            boolean matchesId =
-                    idSearch.isEmpty() ||
-                    String.valueOf(product.getId()).equals(idSearch);
+            boolean matchesId = idSearch.isEmpty() ||
+                    product.getId()==(Integer.parseInt(idSearch));
 
-            boolean matchesName =
-                    nameSearch.isEmpty() ||
+            boolean matchesName = nameSearch.isEmpty() ||
                     product.getName().toLowerCase().contains(nameSearch.toLowerCase());
 
-            boolean matchesMin =
-                    min == null ||
+            boolean matchesMin = min == null ||
                     product.getPrice() >= min;
 
-            boolean matchesMax =
-                    max == null ||
+            boolean matchesMax = max == null ||
                     product.getPrice() <= max;
 
-            boolean matchesAvailability =
-                    availabilityChoice.equals("Any Availability") ||
-                    availabilityChoice.equals("Available") && product.isAvailable() ||
-                    availabilityChoice.equals("Unavailable") && !product.isAvailable();
-
-            if (matchesId && matchesName && matchesMin && matchesMax && matchesAvailability) {
+            if (matchesId && matchesName && matchesMin && matchesMax) {
                 filteredProducts.add(product);
             }
         }
@@ -247,17 +244,30 @@ public class ShopUI {
         tableModel.setRowCount(0);
 
         for (Product product : products) {
-            tableModel.addRow(new Object[]{
+            tableModel.addRow(new Object[] {
                     false,
                     product.getId(),
                     product.getName(),
                     product.getPrice(),
-                    product.isAvailable()
+                    product.getInStock()
             });
+            saveCSV("products.csv");
         }
     }
+    private static void saveCSV(String filePath) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+        writer.println("id,name,price,stock");
 
+        for (Product product : allProducts) {
+            writer.println(
+                    product.getId() + "," + product.getName() + "," +
+                    product.getPrice() + "," + product.getInStock()
+            );
+        }
 
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Could not save products to CSV.");
+    }
 }
 
-
+}

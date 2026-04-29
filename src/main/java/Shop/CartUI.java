@@ -3,13 +3,16 @@ package Shop;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class CartUI {
 
     private static DefaultTableModel cartTableModel;
 
-    public static void createUI(ShoppingCart cart) {
+    public static void createUI(ShoppingCart cart, List<Product> allProducts) {
         JFrame frame = new JFrame("Shopping Cart");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 400);
@@ -28,33 +31,54 @@ public class CartUI {
         remove.addActionListener(e->{
             for (int i = 0; i < cartTableModel.getRowCount(); i++) {
                 Boolean selected = (Boolean) cartTableModel.getValueAt(i, 0);
+                int id = Integer.parseInt(cartTableModel.getValueAt(i,1).toString());
                 if (selected != null && selected) {
                     cartTableModel.setValueAt(false, i, 0);
+                    for(Product p: allProducts){
+                        if(id==p.getId()){
+                            p.setInStock(p.getInStock()+1);
+                        }
+                    }
                     cart.deleteProduct(i);
                 }
-                updateTable(cart.getProducts());
-        }    
+                saveCSV("products.csv",allProducts);
+                
+            }   
+
+        updateTable(cart.getProducts());
+        JOptionPane.showMessageDialog(frame, "Item(s) successfully removed from cart");
+
+        
         });
 
         JButton getTotal = new JButton("Get Total");
         getTotal.addActionListener(e->{
             double total = cart.calculateTotal();
-            JOptionPane.showMessageDialog(frame, "Your total is: $" + Double.toString(total));
+            String totalStr = Double.toString(total);
+            if(totalStr.length()-1-totalStr.indexOf(".")!=2){
+                totalStr+="0";
+            }
+            JOptionPane.showMessageDialog(frame, "Your total is: $" + totalStr);
         });
 
+        JButton purchase = new JButton("Purchase");
+
+
+
         topPanel.add(backButton);
-         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         bottomPanel.add(remove);
         bottomPanel.add(getTotal);
+        bottomPanel.add(purchase,BorderLayout.EAST);
         frame.add(topPanel, BorderLayout.NORTH);
         frame.add(bottomPanel,BorderLayout.SOUTH);
 
-        String[] columns = {"Select", "ID", "Name", "Price", "Availability"};
+        String[] columns = {"Select", "ID", "Name", "Price"};
                
         cartTableModel = new DefaultTableModel(columns, 0) {
             @Override
             public Class<?> getColumnClass(int column) {
-                if (column == 0 || column == 4) return Boolean.class;
+                if (column == 0) return Boolean.class;
                 if (column == 3) return Double.class;
                 return String.class;
             }
@@ -64,9 +88,6 @@ public class CartUI {
                 return column == 0;
             }
         };
-
-
-
 
 
         JTable cartTable = new JTable(cartTableModel);
@@ -89,7 +110,6 @@ public class CartUI {
                     product.getId(),
                     product.getName(),
                     product.getPrice(),
-                    product.isAvailable()
             });
         }
     }
@@ -102,8 +122,23 @@ public class CartUI {
                     product.getId(),
                     product.getName(),
                     product.getPrice(),
-                    product.isAvailable()
             });
         }
     }
+     private static void saveCSV(String filePath, List<Product> allProducts) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+        writer.println("id,name,price,stock");
+
+        for (Product product : allProducts) {
+            writer.println(
+                    product.getId() + "," + product.getName() + "," +
+                    product.getPrice() + "," + product.getInStock()
+            );
+        }
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Could not save products to CSV.");
+    }
+}
+    
 }

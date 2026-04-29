@@ -1,5 +1,11 @@
-id,name,price,availability
-001,toothbrush,2.75,true
-002,shampoo,7.85,true
-003,soap,1.75,true
-004,towel,10.23,true
+id,name,price,stock
+1001,toothbrush,2.75,4
+1002,shampoo,7.85,3
+1003,soap,1.75,2
+1004,towel,10.23,1
+1005,water,2.19,0
+1006,soda,2.79,2
+1007,chips,1.57,10
+1008,phone charger,21.84,2
+1009,pen,3.11,12
+1010,razer,12.99,5

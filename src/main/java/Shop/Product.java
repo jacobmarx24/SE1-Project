@@ -4,13 +4,13 @@ public class Product {
     private int id;
     private String name;
     private double price;
-    private boolean isAvailabile;
+    private int inStock;
 
-    Product(int id, String name, double price, boolean isAvailabile){
+    Product(int id, String name, double price, int inStock){
         this.id=id;
         this.name=name;
         this.price=price;
-        this.isAvailabile = isAvailabile;
+        this.inStock = inStock;
     }
 
     public int getId() {
@@ -25,12 +25,12 @@ public class Product {
         return price;
     }
 
-    public boolean isAvailable(){
-        return isAvailabile;
+    public int getInStock() {
+        return inStock;
     }
-    
-    public void setAvailability(boolean isAvailabile) {
-        this.isAvailabile = isAvailabile;
+
+    public void setInStock(int inStock) {
+        this.inStock = inStock;
     }
 
     public void setId(int id) {
@@ -43,5 +43,10 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getCSV(){
+        return Integer.toString(id) + "," + name + "," + Double.toString(price)
+        + "," + Integer.toString(inStock);
     }
 }
