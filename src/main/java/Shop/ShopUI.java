@@ -302,19 +302,25 @@ public class ShopUI {
             maxPriceText = "";
         }
 
-        double min = -1.0;
-        double max = -1.0;
+        Double min = null;
+        Double max = null;
 
         try {
             if (!minPriceText.isEmpty()) {
+                if(Double.parseDouble(minPriceText)<0.0){
+                    throw new NumberFormatException();
+                }                
                 min = Double.parseDouble(minPriceText);
             }
 
             if (!maxPriceText.isEmpty()) {
+                if(Double.parseDouble(maxPriceText)<0.0){
+                    throw new NumberFormatException();
+                }
                 max = Double.parseDouble(maxPriceText);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Price must be a number.");
+            JOptionPane.showMessageDialog(null, "Price must be a positive number.");
             return;
         }
 
@@ -325,9 +331,9 @@ public class ShopUI {
 
             boolean matchesName = nameSearch.isEmpty() || product.getName().toLowerCase().contains(nameSearch.toLowerCase());
 
-            boolean matchesMin = min == -1.0 || product.getPrice() >= min;
+            boolean matchesMin = min == null || product.getPrice() >= min;
 
-            boolean matchesMax = max == -1.0 || product.getPrice() <= max;
+            boolean matchesMax = max == null || product.getPrice() <= max;
 
             if (matchesId && matchesName && matchesMin && matchesMax) {
                 filteredProducts.add(product);
@@ -335,6 +341,9 @@ public class ShopUI {
         }
 
         updateTable(filteredProducts);
+        if(filteredProducts.size() == 0){
+            JOptionPane.showMessageDialog(null, "No items found");
+        }
     }
 
     private static void updateTable(List<Product> products) {
