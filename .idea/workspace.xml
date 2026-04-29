@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="Migrate from CSV-based storage to SQLite database">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clerks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/clerks.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkLoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkLoginFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkProfileFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkProfileFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/DatabaseHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="merged clerk modify profile and clerk login" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,7 +120,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775791525090</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="merged clerk modify profile and clerk login">
+      <option name="closed" value="true" />
+      <created>1777497068092</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1777497068092</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +148,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: initial project setup&#10;&#10;- initialize git repository&#10;- add base project structure&#10;- configure IDE settings" />
     <MESSAGE value="Migrate from CSV-based storage to SQLite database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Migrate from CSV-based storage to SQLite database" />
+    <MESSAGE value="merged clerk modify profile and clerk login" />
+    <option name="LAST_COMMIT_MESSAGE" value="merged clerk modify profile and clerk login" />
   </component>
 </project>
