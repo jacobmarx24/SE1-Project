@@ -23,6 +23,8 @@ public class RoomSelectionUI {
     private static JTextField startDateBar;
     private static JTextField endDateBar;
 
+    public static String currentUsername = "guest";
+
     public static void createUI() {
         JFrame frame = new JFrame("Room Reservation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -172,8 +174,13 @@ public class RoomSelectionUI {
     }
 
     private static void reserveRoom() {
-        JTextField startField = new JTextField(10);
-        JTextField endField = new JTextField(10);
+        String startText = startDateBar.getText();
+        if ("Start Date (MM/DD/YYYY)".equals(startText)) startText = "";
+        String endText = endDateBar.getText();
+        if ("End Date (MM/DD/YYYY)".equals(endText)) endText = "";
+
+        JTextField startField = new JTextField(startText, 10);
+        JTextField endField = new JTextField(endText, 10);
 
         JPanel myPanel = new JPanel();
         myPanel.add(new JLabel("Start Date (MM/dd/yyyy):"));
@@ -209,7 +216,7 @@ public class RoomSelectionUI {
             }
 
             ReservationService resService = new ReservationService("reservations.csv");
-            resService.updateReservationsCSV(startDate, endDate, selectedRoomIds);
+            resService.updateReservationsCSV(currentUsername, startDate, endDate, selectedRoomIds);
             JOptionPane.showMessageDialog(null, "Reservation successful!");
         }
     }

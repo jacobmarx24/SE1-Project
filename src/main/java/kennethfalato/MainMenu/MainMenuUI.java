@@ -8,9 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuUI {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainMenuUI::createUI);
-    }
+    //public static void main(String[] args) {
+   //     SwingUtilities.invokeLater(MainMenuUI::createUI);
+    //}
     public static void createUI() {
         JFrame frame = new JFrame("Main Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,7 +42,11 @@ public class MainMenuUI {
         frame.add(gidL, BorderLayout.CENTER);
         frame.setVisible(true);
 
-        //TODO: add logic for buttons
+        resInfo.addActionListener(e -> {
+            frame.dispose();
+            jacobmarx.ReserveRoom.ReservationInfoUI.createUI();
+        });
+
         logOut.addActionListener(e -> {
             frame.dispose();
             new GuestLoginFrame();
@@ -52,7 +56,6 @@ public class MainMenuUI {
             frame.dispose();
             RoomSelectionUI.createUI();
         });
-
     }
 
 }

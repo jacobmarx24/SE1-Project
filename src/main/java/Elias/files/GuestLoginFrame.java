@@ -132,7 +132,8 @@ public class GuestLoginFrame extends JFrame {
             JOptionPane.showMessageDialog(this,
                 "Welcome back, " + guest[1] + "!",
                 "Login Successful", JOptionPane.INFORMATION_MESSAGE);
-            // TODO: open guest dashboard
+            // Set current username for reservation
+            jacobmarx.ReserveRoom.RoomSelectionUI.currentUsername = guest[2];
             MainMenuUI.createUI();
             dispose();
         }
