@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <guests>
+      
+  
   <guest>
+            
+    
     <id>1776195243105</id>
+            
+    
     <fullName>Elias Tovar</fullName>
+            
+    
     <username>etovar02</username>
+            
+    
     <password>Password1</password>
+            
+    
     <email>elias@hotel.org</email>
+            
+    
     <phone>777-777-7777</phone>
+            
+    
     <createdAt>2026-04-14</createdAt>
+          
+    
+    <bill>730.23</bill>
+      
   </guest>
+    
+
 </guests>

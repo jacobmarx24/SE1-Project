@@ -2,6 +2,7 @@ package Elias.files;
 
 import jacobmarx.RoomsAndReservation.Reservation;
 import jacobmarx.RoomsAndReservation.ReservationService;
+import jacobmarx.RoomsAndReservation.RoomService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class ClerkMenuFrame extends JFrame {
     private String[] clerkData;
     private ReservationService reservationService;
+    private RoomService roomService;
     private JTable table;
     private DefaultTableModel tableModel;
 
@@ -25,6 +27,7 @@ public class ClerkMenuFrame extends JFrame {
     public ClerkMenuFrame(String[] clerkData) {
         this.clerkData = clerkData;
         this.reservationService = new ReservationService("reservations.csv");
+        this.roomService = new RoomService("rooms.csv");
         UITheme.applyDefaults(this, "Clerk Menu — Aura Hotel", 900, 600);
         setLayout(new BorderLayout());
 
@@ -129,10 +132,14 @@ public class ClerkMenuFrame extends JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             Reservation res = reservationService.getReservations().get(selectedRow);
+            
+            // Calculate and add to bill
+            BillService.processRoomCheckout(res.getUsername(), res, roomService);
+            
             reservationService.removeReservation(res);
             reservationService.saveAllReservations();
             refreshTable();
-            JOptionPane.showMessageDialog(this, "Guest checked out successfully!");
+            JOptionPane.showMessageDialog(this, "Guest checked out successfully! The cost has been added to their bill.");
         }
     }
 

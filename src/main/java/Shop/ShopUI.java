@@ -1,5 +1,6 @@
 package Shop;
 
+import kennethfalato.MainMenu.MainMenuUI;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -134,11 +135,19 @@ public class ShopUI {
             CartUI.createUI(cart, allProducts);
         });
 
-        //TODO: Add menu button
         JButton toMenu = styledButton("Main Menu");
         toMenu.addActionListener(e -> {
+            for (Product cartProduct : cart.getProducts()) {
+                for (Product shopProduct : allProducts) {
+                    if (cartProduct.getId() == shopProduct.getId()) {
+                        shopProduct.setInStock(shopProduct.getInStock() + 1);
+                    }
+                }
+            }
+            cart.getProducts().clear();
+            saveCSV("products.csv");
             frame.dispose();
-            //MainMenu.createUI();
+            MainMenuUI.createUI();
         });
 
 
@@ -331,8 +340,8 @@ public class ShopUI {
         for (Product product : products) {
             tableModel.addRow(new Object[] {false, product.getId(),product.getName(),product.getPrice(),
                     product.getInStock()});
-            saveCSV("products.csv");
         }
+        saveCSV("products.csv");
     }
 
     private static void saveCSV(String filePath) {

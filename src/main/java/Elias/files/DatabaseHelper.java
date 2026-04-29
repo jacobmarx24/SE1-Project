@@ -37,10 +37,10 @@ public class DatabaseHelper {
     private static final String CLERKS_FILE = "clerks.xml";
 
     // Column order returned by readAll / findGuest / findClerk
-    // guests : id, fullName, username, password, email, phone, createdAt
+    // guests : id, fullName, username, password, email, phone, createdAt, bill
     // clerks : id, fullName, username, password, role, permissions, createdAt
     private static final String[] GUEST_FIELDS =
-            { "id", "fullName", "username", "password", "email", "phone", "createdAt" };
+            { "id", "fullName", "username", "password", "email", "phone", "createdAt", "bill" };
     private static final String[] CLERK_FIELDS =
             { "id", "fullName", "username", "password", "role", "permissions", "createdAt" };
 
@@ -95,6 +95,7 @@ public class DatabaseHelper {
         data.put("email",     email);
         data.put("phone",     phone);
         data.put("createdAt", today());
+        data.put("bill",      "0.0");
         appendRecord(GUESTS_FILE, "guests", "guest", data);
     }
 
@@ -134,6 +135,71 @@ public class DatabaseHelper {
                     el.getElementsByTagName("role").item(0).setTextContent(role);
                     el.getElementsByTagName("permissions").item(0).setTextContent(permissions);
                     save(doc, CLERKS_FILE);
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static double getGuestBill(String username) {
+        Element el = findRow(GUESTS_FILE, "guest", "username", username, true);
+        if (el != null) {
+            try {
+                return Double.parseDouble(text(el, "bill"));
+            } catch (Exception e) {
+                return 0.0;
+            }
+        }
+        return 0.0;
+    }
+
+    public static void updateGuestBill(String username, double amount) {
+        try {
+            Document doc = parse(GUESTS_FILE);
+            NodeList nodes = doc.getElementsByTagName("guest");
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Element el = (Element) nodes.item(i);
+                if (text(el, "username").equalsIgnoreCase(username)) {
+                    double currentBill = 0.0;
+                    try {
+                        currentBill = Double.parseDouble(text(el, "bill"));
+                    } catch (Exception ignored) {}
+                    
+                    NodeList billNodes = el.getElementsByTagName("bill");
+                    if (billNodes.getLength() > 0) {
+                        billNodes.item(0).setTextContent(String.valueOf(currentBill + amount));
+                    } else {
+                        Element billEl = doc.createElement("bill");
+                        billEl.setTextContent(String.valueOf(currentBill + amount));
+                        el.appendChild(billEl);
+                    }
+                    save(doc, GUESTS_FILE);
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearGuestBill(String username) {
+        try {
+            Document doc = parse(GUESTS_FILE);
+            NodeList nodes = doc.getElementsByTagName("guest");
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Element el = (Element) nodes.item(i);
+                if (text(el, "username").equalsIgnoreCase(username)) {
+                    NodeList billNodes = el.getElementsByTagName("bill");
+                    if (billNodes.getLength() > 0) {
+                        billNodes.item(0).setTextContent("0.0");
+                    } else {
+                        Element billEl = doc.createElement("bill");
+                        billEl.setTextContent("0.0");
+                        el.appendChild(billEl);
+                    }
+                    save(doc, GUESTS_FILE);
                     return;
                 }
             }

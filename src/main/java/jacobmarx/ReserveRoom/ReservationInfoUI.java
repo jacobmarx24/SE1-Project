@@ -2,6 +2,7 @@ package jacobmarx.ReserveRoom;
 
 import jacobmarx.RoomsAndReservation.Reservation;
 import jacobmarx.RoomsAndReservation.ReservationService;
+import Elias.files.BillService;
 import kennethfalato.MainMenu.MainMenuUI;
 
 import javax.swing.*;
@@ -93,9 +94,10 @@ public class ReservationInfoUI {
             Reservation res = userReservations.get(selectedRow);
             resService.removeReservation(res);
             resService.saveAllReservations();
+            BillService.applyCancellationPenalty(username);
             tableModel.removeRow(selectedRow);
             userReservations.remove(selectedRow);
-            JOptionPane.showMessageDialog(null, "Reservation canceled.");
+            JOptionPane.showMessageDialog(null, "Reservation canceled. A $10 penalty has been added to your bill.");
         }
     }
 

@@ -1,5 +1,6 @@
 package Shop;
 
+import kennethfalato.MainMenu.MainMenuUI;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -81,8 +82,28 @@ public class CartUI {
             ShopUI.createUI();
         });
 
+        JButton toMenu = styledButton("Main Menu");
+        toMenu.addActionListener(e -> {
+            for (Product p : cart.getProducts()) {
+                for (Product shopP : allProducts) {
+                    if (p.getId() == shopP.getId()) {
+                        shopP.setInStock(shopP.getInStock() + 1);
+                    }
+                }
+            }
+            cart.getProducts().clear();
+            saveCSV("products.csv", allProducts);
+            frame.dispose();
+            MainMenuUI.createUI();
+        });
+
+        JPanel topBarButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        topBarButtons.setBackground(CARD);
+        topBarButtons.add(backButton);
+        topBarButtons.add(toMenu);
+
         topBar.add(title, BorderLayout.WEST);
-        topBar.add(backButton, BorderLayout.EAST);
+        topBar.add(topBarButtons, BorderLayout.EAST);
 
         String[] columns = { "Select", "ID", "Name", "Price" };
 
@@ -128,6 +149,21 @@ public class CartUI {
         tableCard.add(scrollPane, BorderLayout.CENTER);
 
         JButton remove = styledButton("Remove Selected");
+        JButton emptyCart = styledButton("Empty Cart");
+        emptyCart.addActionListener(e -> {
+            for (Product p : cart.getProducts()) {
+                for (Product shopP : allProducts) {
+                    if (p.getId() == shopP.getId()) {
+                        shopP.setInStock(shopP.getInStock() + 1);
+                    }
+                }
+            }
+            cart.getProducts().clear();
+            saveCSV("products.csv", allProducts);
+            updateTable(cart.getProducts());
+            JOptionPane.showMessageDialog(frame, "Cart emptied and stock restored");
+        });
+
         remove.addActionListener(e -> {
 
             for (int i = cartTableModel.getRowCount() - 1; i >= 0; i--) {
@@ -158,9 +194,24 @@ public class CartUI {
             JOptionPane.showMessageDialog(frame, String.format("Your total is: $%.2f", total));
         });
 
-        JButton purchase = styledButton("Purchase");
+        JButton purchase = styledButton("Buy Items");
         purchase.addActionListener(e -> {
-            // TODO: Finish purchase button
+            double total = cart.calculateTotal();
+            if (total <= 0) {
+                JOptionPane.showMessageDialog(frame, "Your cart is empty!");
+                return;
+            }
+            int choice = JOptionPane.showConfirmDialog(frame, 
+                String.format("Purchase items for $%.2f and add to your bill?", total),
+                "Confirm Purchase", JOptionPane.YES_NO_OPTION);
+            
+            if (choice == JOptionPane.YES_OPTION) {
+                Elias.files.BillService.addToBill(jacobmarx.ReserveRoom.RoomSelectionUI.currentUsername, total);
+                cart.getProducts().clear();
+                saveCSV("products.csv", allProducts);
+                updateTable(cart.getProducts());
+                JOptionPane.showMessageDialog(frame, "Items purchased! The cost has been added to your bill.");
+            }
         });
 
         JPanel actionBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 12));
@@ -170,6 +221,7 @@ public class CartUI {
                 BorderFactory.createEmptyBorder(8, 12, 8, 12)));
 
         actionBar.add(remove);
+        actionBar.add(emptyCart);
         actionBar.add(getTotal);
         actionBar.add(purchase);
 

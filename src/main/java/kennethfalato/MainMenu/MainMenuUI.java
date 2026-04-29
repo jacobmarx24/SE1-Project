@@ -1,8 +1,10 @@
 package kennethfalato.MainMenu;
 
 
+import Elias.files.BillUI;
 import Elias.files.GuestLoginFrame;
 import jacobmarx.ReserveRoom.RoomSelectionUI;
+import Shop.ShopUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,6 +57,16 @@ public class MainMenuUI {
         searchRoom.addActionListener(e -> {
             frame.dispose();
             RoomSelectionUI.createUI();
+        });
+
+        shop.addActionListener(e -> {
+            frame.dispose();
+            ShopUI.createUI();
+        });
+
+        bill.addActionListener(e -> {
+            frame.dispose();
+            BillUI.createUI();
         });
     }
 
