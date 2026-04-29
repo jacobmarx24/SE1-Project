@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="merged clerk modify profile and clerk login" />
+    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="login page connected with main menu">
+      <change afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/RoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +17,13 @@
   <component name="EmbeddingIndexingInfo">
     <option name="cachedIndexableFilesCount" value="37" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -60,7 +71,7 @@
     "git-widget-placeholder": "combined-branch2",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/elias/IdeaProjects/SE1-Project",
+    "last_opened_file_path": "/Users/jacobmarx/IdeaProjects/SE1-Project/src/main/java/jacobmarx/RoomsAndReservation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -72,6 +83,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation" />
       <recent name="$PROJECT_DIR$/files" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
