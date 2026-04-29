@@ -10,76 +10,91 @@ import java.util.List;
 
 public class CartUI {
 
+    private static final Color PRIMARY = new Color(2450411);
+    private static final Color PRIMARY_HOVER = new Color(1920728);
+    private static final Color BACKGROUND = new Color(245, 247, 250);
+    private static final Color CARD = Color.WHITE;
+    private static final Color TEXT_DARK = new Color(35, 35, 35);
+    private static final Color BORDER = new Color(220, 225, 235);
+
+    private static JButton styledButton(String text) {
+        JButton button = new JButton(text);
+        button.setBackground(PRIMARY);
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setBorder(BorderFactory.createEmptyBorder(10, 18, 10, 18));
+
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                button.setBackground(PRIMARY_HOVER);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                button.setBackground(PRIMARY);
+            }
+        });
+
+        return button;
+    }
+
+    private static JTextField styledTextField(String placeholder) {
+        JTextField field = new JTextField(placeholder);
+        field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        field.setPreferredSize(new Dimension(130, 38));
+        field.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER, 1),
+                BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        return field;
+    }
+
     private static DefaultTableModel cartTableModel;
 
     public static void createUI(ShoppingCart cart, List<Product> allProducts) {
         JFrame frame = new JFrame("Shopping Cart");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 400);
+        frame.setSize(950, 600);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
+        frame.getContentPane().setBackground(BACKGROUND);
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel mainWrapper = new JPanel(new BorderLayout(0, 20));
+        mainWrapper.setBackground(BACKGROUND);
+        mainWrapper.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
 
-        JButton backButton = new JButton("<-- Back to Products");
+        JPanel topBar = new JPanel(new BorderLayout());
+        topBar.setBackground(CARD);
+        topBar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER, 1),
+                BorderFactory.createEmptyBorder(18, 22, 18, 22)));
+
+        JLabel title = new JLabel("Shopping Cart");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setForeground(TEXT_DARK);
+
+        JButton backButton = styledButton("← Back to Products");
         backButton.addActionListener(e -> {
             frame.dispose();
             ShopUI.createUI();
         });
 
-        JButton remove = new JButton("Remove Item");
-        remove.addActionListener(e->{
-            for (int i = 0; i < cartTableModel.getRowCount(); i++) {
-                Boolean selected = (Boolean) cartTableModel.getValueAt(i, 0);
-                int id = Integer.parseInt(cartTableModel.getValueAt(i,1).toString());
-                if (selected != null && selected) {
-                    cartTableModel.setValueAt(false, i, 0);
-                    for(Product p: allProducts){
-                        if(id==p.getId()){
-                            p.setInStock(p.getInStock()+1);
-                        }
-                    }
-                    cart.deleteProduct(i);
-                }
-                saveCSV("products.csv",allProducts);
-                
-            }   
+        topBar.add(title, BorderLayout.WEST);
+        topBar.add(backButton, BorderLayout.EAST);
 
-        updateTable(cart.getProducts());
-        JOptionPane.showMessageDialog(frame, "Item(s) successfully removed from cart");
+        String[] columns = { "Select", "ID", "Name", "Price" };
 
-        
-        });
-
-        JButton getTotal = new JButton("Get Total");
-        getTotal.addActionListener(e->{
-            double total = cart.calculateTotal();
-            String totalStr = Double.toString(total);
-            if(totalStr.length()-1-totalStr.indexOf(".")!=2){
-                totalStr+="0";
-            }
-            JOptionPane.showMessageDialog(frame, "Your total is: $" + totalStr);
-        });
-
-        JButton purchase = new JButton("Purchase");
-
-
-
-        topPanel.add(backButton);
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        bottomPanel.add(remove);
-        bottomPanel.add(getTotal);
-        bottomPanel.add(purchase,BorderLayout.EAST);
-        frame.add(topPanel, BorderLayout.NORTH);
-        frame.add(bottomPanel,BorderLayout.SOUTH);
-
-        String[] columns = {"Select", "ID", "Name", "Price"};
-               
         cartTableModel = new DefaultTableModel(columns, 0) {
             @Override
             public Class<?> getColumnClass(int column) {
-                if (column == 0) return Boolean.class;
-                if (column == 3) return Double.class;
+                if (column == 0)
+                    return Boolean.class;
+                if (column == 1)
+                    return Integer.class;
+                if (column == 3)
+                    return Double.class;
                 return String.class;
             }
 
@@ -89,12 +104,84 @@ public class CartUI {
             }
         };
 
-
         JTable cartTable = new JTable(cartTableModel);
-        cartTable.setRowHeight(25);
+        cartTable.setRowHeight(34);
+        cartTable.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        cartTable.setSelectionBackground(new Color(230, 238, 255));
+        cartTable.setSelectionForeground(TEXT_DARK);
+        cartTable.setGridColor(new Color(235, 235, 235));
+        cartTable.setShowVerticalLines(false);
+
+        cartTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        cartTable.getTableHeader().setBackground(PRIMARY);
+        cartTable.getTableHeader().setForeground(Color.WHITE);
+        cartTable.getTableHeader().setPreferredSize(new Dimension(0, 38));
 
         JScrollPane scrollPane = new JScrollPane(cartTable);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+
+        JPanel tableCard = new JPanel(new BorderLayout());
+        tableCard.setBackground(CARD);
+        tableCard.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER, 1),
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
+        tableCard.add(scrollPane, BorderLayout.CENTER);
+
+        JButton remove = styledButton("Remove Selected");
+        remove.addActionListener(e -> {
+
+            for (int i = cartTableModel.getRowCount() - 1; i >= 0; i--) {
+                boolean selected = (boolean) cartTableModel.getValueAt(i, 0);
+                int id = Integer.parseInt(cartTableModel.getValueAt(i, 1).toString());
+
+                if (selected) {
+                    for (Product p : allProducts) {
+                        if (id == p.getId()) {
+                            p.setInStock(p.getInStock() + 1);
+                        }
+                    }
+
+                    cart.deleteProduct(i);
+
+                }
+            }
+
+            saveCSV("products.csv", allProducts);
+            updateTable(cart.getProducts());
+
+            JOptionPane.showMessageDialog(frame, "Item(s) successfully removed from cart");
+        });
+
+        JButton getTotal = styledButton("Get Total");
+        getTotal.addActionListener(e -> {
+            double total = cart.calculateTotal();
+            JOptionPane.showMessageDialog(frame, String.format("Your total is: $%.2f", total));
+        });
+
+        JButton purchase = styledButton("Purchase");
+        purchase.addActionListener(e -> {
+            // TODO: Finish purchase button
+        });
+
+        JPanel actionBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 12));
+        actionBar.setBackground(CARD);
+        actionBar.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER, 1),
+                BorderFactory.createEmptyBorder(8, 12, 8, 12)));
+
+        actionBar.add(remove);
+        actionBar.add(getTotal);
+        actionBar.add(purchase);
+
+        JPanel centerContent = new JPanel(new BorderLayout(0, 18));
+        centerContent.setBackground(BACKGROUND);
+        centerContent.add(tableCard, BorderLayout.CENTER);
+        centerContent.add(actionBar, BorderLayout.SOUTH);
+
+        mainWrapper.add(topBar, BorderLayout.NORTH);
+        mainWrapper.add(centerContent, BorderLayout.CENTER);
+
+        frame.add(mainWrapper, BorderLayout.CENTER);
 
         loadCart(cart);
 
@@ -105,7 +192,7 @@ public class CartUI {
         cartTableModel.setRowCount(0);
 
         for (Product product : cart.getProducts()) {
-            cartTableModel.addRow(new Object[]{
+            cartTableModel.addRow(new Object[] {
                     false,
                     product.getId(),
                     product.getName(),
@@ -113,32 +200,28 @@ public class CartUI {
             });
         }
     }
-        private static void updateTable(List<Product> products) {
+
+    private static void updateTable(List<Product> products) {
         cartTableModel.setRowCount(0);
 
         for (Product product : products) {
-            cartTableModel.addRow(new Object[]{
-                    false,
-                    product.getId(),
-                    product.getName(),
-                    product.getPrice(),
-            });
+            cartTableModel.addRow(new Object[] { false, product.getId(), product.getName(),
+                    product.getPrice(), });
         }
     }
-     private static void saveCSV(String filePath, List<Product> allProducts) {
-    try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-        writer.println("id,name,price,stock");
 
-        for (Product product : allProducts) {
-            writer.println(
-                    product.getId() + "," + product.getName() + "," +
-                    product.getPrice() + "," + product.getInStock()
-            );
+    private static void saveCSV(String filePath, List<Product> allProducts) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            writer.println("id,name,price,stock");
+
+            for (Product product : allProducts) {
+                writer.println(
+                        product.getId() + "," + product.getName() + "," + product.getPrice() + "," + product.getInStock());
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not save products to CSV.");
         }
-
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Could not save products to CSV.");
     }
-}
-    
+
 }

@@ -1,5 +1,7 @@
 package Shop;
-import java.util.*;
+import java.util.*
+
+;
 public class Product {
     private int id;
     private String name;
