@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ctrl-Alt-Defeat | Hotel & Shop Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0d0f14;
+      --surface:   #13161e;
+      --surface2:  #1a1e29;
+      --border:    #252a38;
+      --accent:    #e8c97a;
+      --accent2:   #7ab8e8;
+      --text:      #e8e4da;
+      --muted:     #7a8099;
+      --tag-fe:    #7ab8e8;
+      --tag-be:    #9d7ae8;
+      --tag-ui:    #e87a9d;
+      --tag-data:  #7ae8b8;
+      --tag-pm:    #e8c97a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(13,15,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: .05em;
+    }
+    .nav-logo span { color: var(--muted); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,201,122,.08) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .78rem;
+      letter-spacing: .25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp .6s ease forwards .2s;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .4s;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .6s;
+    }
+
+    .hero-links {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .8s;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .65rem 1.5rem;
+      border-radius: 4px;
+      font-size: .85rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .05em;
+      text-decoration: none;
+      transition: all .2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0f14;
+    }
+    .btn-primary:hover { background: #f0d98a; transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 2rem; }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem;
+      letter-spacing: .25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── GROUP OVERVIEW ── */
+    #overview { background: var(--surface); }
+
+    .overview-meta {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 3.5rem;
+    }
+
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .55rem 1.2rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: .83rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .meta-chip:hover { border-color: var(--accent2); color: var(--accent2); }
+    .meta-chip .chip-icon { font-size: 1rem; }
+
+    /* member grid */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .member-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .member-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .member-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .member-card:hover::before { opacity: 1; }
+
+    .member-initials {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #0d0f14;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .member-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: .2rem;
+    }
+
+    .member-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem;
+      color: var(--accent2);
+      letter-spacing: .05em;
+      margin-bottom: .75rem;
+    }
+
+    .member-cases {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .member-cases strong { color: var(--text); font-weight: 500; }
+
+    /* ── TIMELINE / BLOG ── */
+    #devlog { background: var(--bg); }
+
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent) 0%, var(--border) 60%, transparent 100%);
+    }
+
+    .tl-entry {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+
+    .tl-entry::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: .6rem;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,201,122,.18);
+    }
+
+    .tl-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .73rem;
+      color: var(--muted);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+
+    .tl-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem 2rem;
+      transition: border-color .2s;
+    }
+    .tl-card:hover { border-color: var(--border); }
+
+    .tl-tags {
+      display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .9rem;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .08em;
+      padding: .2rem .65rem;
+      border-radius: 3px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .tag-frontend  { background: rgba(122,184,232,.12); color: var(--tag-fe); }
+    .tag-backend   { background: rgba(157,122,232,.12); color: var(--tag-be); }
+    .tag-design    { background: rgba(232,122,157,.12); color: var(--tag-ui); }
+    .tag-database  { background: rgba(122,232,184,.12); color: var(--tag-data); }
+    .tag-planning  { background: rgba(232,201,122,.12); color: var(--tag-pm); }
+
+    .tl-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      margin-bottom: .5rem;
+      line-height: 1.25;
+    }
+
+    .tl-author {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .tl-author span { color: var(--accent2); font-weight: 500; }
+
+    .tl-body {
+      font-size: .93rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .tl-body p + p { margin-top: .75rem; }
+
+    .tl-body ul {
+      margin: .75rem 0 .75rem 1.25rem;
+    }
+    .tl-body ul li { margin-bottom: .3rem; }
+
+    /* add post btn */
+    .add-post-wrapper { margin-top: 2rem; }
+
+    /* ── ABOUT PROJECT ── */
+    #project { background: var(--surface); }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 700px) {
+      .project-grid { grid-template-columns: 1fr; }
+    }
+
+    .project-detail h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-detail p {
+      color: var(--muted);
+      font-size: .93rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .spec-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: .6rem;
+    }
+    .spec-list li {
+      display: flex; align-items: flex-start; gap: .75rem;
+      font-size: .88rem;
+      color: var(--muted);
+    }
+    .spec-list li::before {
+      content: '→';
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+      margin-top: .05rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    .footer-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .85rem;
+      color: var(--accent);
+    }
+
+    .footer-note {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 4rem 1.25rem; }
+      footer { padding: 2rem 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-logo">Ctrl<span>-</span>Alt<span>-</span>Defeat</div>
+    <ul class="nav-links">
+      <li><a href="#overview">Group</a></li>
+      <li><a href="#devlog">Dev Log</a></li>
+      <li><a href="#project">Project</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <p class="hero-eyebrow">CS Group Project · Hotel &amp; Shop System</p>
+    <h1>Ctrl-Alt-<em>Defeat</em></h1>
+    <p class="hero-sub">Follow our development journey as we design and build a hotel &amp; shop management system from the ground up.</p>
+    <div class="hero-links">
+      <a href="#devlog" class="btn btn-primary">View Dev Log</a>
+      <a href="#overview" class="btn btn-ghost">Meet the Team</a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── GROUP OVERVIEW ── -->
+  <section id="overview">
+    <div class="section-inner">
+      <p class="section-label">01 — Group Overview</p>
+      <h2 class="section-title">Meet the Team</h2>
+      <p class="section-desc">Five developers, one shared deadline. Here's who does what.</p>
+
+      <!-- External links -->
+      <div class="overview-meta">
+        <a href="https://baylor-team-3482.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline?atlOrigin=eyJpIjoiNGVjOTI2Y2RkZmY5NGE1MGEwMTIyYThkMWQyY2Q5M2EiLCJwIjoiaiJ9" target="_blank" class="meta-chip">
+          <span class="chip-icon">📋</span> Jira Board
+        </a>
+        <a href="https://github.com/jacobmarx24/SE1-Project" target="_blank" class="meta-chip">
+          <span class="chip-icon">🔗</span> GitHub Repository
+        </a>
+      </div>
+
+      <!-- Member cards — duplicate / edit as needed -->
+      <div class="members-grid">
+
+        <div class="member-card">
+          <div class="member-initials">JM</div>
+          <div class="member-name">Jacob Marx</div>
+          <div class="member-role">Project Manager</div>
+          <div class="member-cases">
+            <strong>Use Cases:</strong><br />
+            Browse and Buy Products<br />
+            Make Reservation<br />
+            Client Log in
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-initials">PD</div>
+          <div class="member-name">Philip Dong</div>
+          <div class="member-role">Requirements Engineer</div>
+          <div class="member-cases">
+            <strong>Use Cases:</strong><br />
+            Clerk Log In<br />
+            Clerk Modify Own Profile<br />
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-initials">KF</div>
+          <div class="member-name">Kenneth Falato</div>
+          <div class="member-role">Design Engineer</div>
+          <div class="member-cases">
+            <strong>Use Cases:</strong><br />
+            Check In/Check out<br />
+            Modify/Cancel Reservation<br />
+            Receive Bill
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-initials">ET</div>
+          <div class="member-name">Elias Tovar</div>
+          <div class="member-role">Quality Assurance</div>
+          <div class="member-cases">
+            <strong>Use Cases:</strong><br />
+            Reset User Account Password<br />
+            Create Clerk Account<br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── DEV LOG ── -->
+  <section id="devlog">
+    <div class="section-inner">
+      <p class="section-label">02 — Development Log</p>
+      <h2 class="section-title">Project Timeline</h2>
+      <p class="section-desc">Chronological updates on what we've built, broken, and fixed.</p>
+
+      <div class="timeline">
+
+        <!-- ── ENTRY 1 (most recent at top) ── -->
+        <div class="tl-entry">
+          <div class="tl-date"><!-- DATE --> February 19, 2026</div>
+          <div class="tl-card">
+            <div class="tl-tags">
+              <span class="tag tag-planning">Planning</span>
+              <span class="tag tag-design">Design</span>
+            </div>
+            <div class="tl-title">Iteration 1 Sprint</div>
+            <div class="tl-author">Posted by <span>Elias Tovar</span></div>
+            <div class="tl-body">
+              <p>We held our first team meetings to develop initial use cases, SSD's, our domain model, and UI wireframes
+              , while also setting up our Jira board</p>
+              <p>Key decisions made:</p>
+              <ul>
+                <li>Created use cases found in documentation</li>
+                <li>Created the Jira board and distributed initial use cases</li>
+                <li>Created the SSD's and Domain Model</li>
+                <li>Sketched the first wireframes for the hotel booking flow</li>
+              </ul>
+              <p>Next sprint goal: Start working on the design phase and implementation</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ENTRY 2 ── -->
+
+        <!-- ── ADD MORE ENTRIES ABOVE THIS COMMENT ── -->
+        <!-- Copy a tl-entry block and paste it above, updating the date, tags, title, author, and body -->
+
+      </div><!-- /timeline -->
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── PROJECT INFO ── -->
+  <section id="project">
+    <div class="section-inner">
+      <p class="section-label">03 — The Project</p>
+      <h2 class="section-title">Hotel &amp; Shop System</h2>
+      <p class="section-desc">A brief overview of what we're actually building.</p>
+
+      <div class="project-grid">
+        <div class="project-detail">
+          <h3>What We're Building</h3>
+          <p>A web-based hotel and retail shop management system that allows guests to browse and book rooms, and customers to purchase shop products — all through a unified interface backed by a shared database.</p>
+          <p>An admin panel allows staff to manage room availability, process check-ins, handle inventory, and view sales and reservation reports.</p>
+        </div>
+
+        <div class="project-detail">
+          <h3>Tech Stack &amp; Scope</h3>
+          <ul class="spec-list">
+            <li>Frontend: HTML, CSS, JavaScript</li>
+            <li>Backend: Java Servlets</li>
+            <li>Database: MySQL</li>
+            <li>Version Control: Git / GitHub</li>
+            <li>Project Management: Jira</li>
+            <li>Deployment: GitHub Pages (frontend) + local/hosted backend</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">Ctrl-Alt-Defeat</div>
+    <div class="footer-note">Hotel &amp; Shop Group Project · Update this site as the project evolves.</div>
+  </footer>
+
+</body>
+</html>
