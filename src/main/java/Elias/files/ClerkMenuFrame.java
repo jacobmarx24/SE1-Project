@@ -13,11 +13,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClerkMenuFrame extends JFrame {
+    private String[] clerkData;
     private ReservationService reservationService;
     private JTable table;
     private DefaultTableModel tableModel;
 
     public ClerkMenuFrame() {
+        this(null);
+    }
+
+    public ClerkMenuFrame(String[] clerkData) {
+        this.clerkData = clerkData;
         this.reservationService = new ReservationService("reservations.csv");
         UITheme.applyDefaults(this, "Clerk Menu — Aura Hotel", 900, 600);
         setLayout(new BorderLayout());
@@ -26,12 +32,12 @@ public class ClerkMenuFrame extends JFrame {
         topPanel.setBackground(UITheme.BG);
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton logoutBtn = UITheme.ghostButton("Logout");
-        logoutBtn.addActionListener(e -> {
+        JButton backBtn = UITheme.ghostButton("Back");
+        backBtn.addActionListener(e -> {
             dispose();
-            new AdminLoginFrame();
+            kennethfalato.MainMenu.ClerkMenu.createUI(clerkData);
         });
-        topPanel.add(logoutBtn, BorderLayout.EAST);
+        topPanel.add(backBtn, BorderLayout.EAST);
 
         add(topPanel, BorderLayout.NORTH);
 

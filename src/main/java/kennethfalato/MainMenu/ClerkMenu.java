@@ -8,7 +8,7 @@ import java.util.*;
 
 public class ClerkMenu {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ClerkMenu::createUI);
+        SwingUtilities.invokeLater(() -> createUI(null));
     }
 
     private static JButton buttonUI(JButton button){
@@ -49,21 +49,41 @@ public class ClerkMenu {
 
     }
 
-    public static void createUI() {
+    public static void createUI(String[] clerkData) {
         JFrame frame = new JFrame("Clerk Menu");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 500);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
         //Buttons
         JButton roomMGR = new JButton("Room Manager");
-        JButton guestMGR = new JButton("Guest Manager");
+        JButton modifyOwnAccount = new JButton("Modify Own Account");
         JButton checkInOut = new JButton("Check In/Out");
         JButton logOut = new JButton("Log Out");
 
+        logOut.addActionListener(e -> {
+            frame.dispose();
+            new Elias.files.ClerkLoginFrame();
+        });
+
+        roomMGR.addActionListener(e -> {
+            frame.dispose();
+            new jacobmarx.RoomsAndReservation.ModifyRoomStatesUI("rooms.csv", clerkData);
+        });
+
+        modifyOwnAccount.addActionListener(e -> {
+            frame.dispose();
+            new Elias.files.ClerkProfileFrame(clerkData);
+        });
+
+        checkInOut.addActionListener(e -> {
+            frame.dispose();
+            new Elias.files.ClerkMenuFrame(clerkData);
+        });
+
         roomMGR = buttonUI(roomMGR);
-        guestMGR = buttonUI(guestMGR);
+        modifyOwnAccount = buttonUI(modifyOwnAccount);
         checkInOut = buttonUI(checkInOut);
         logOut = buttonUI(logOut);
 
@@ -83,7 +103,7 @@ public class ClerkMenu {
         //Grid Panel for buttons
         JPanel centralPanel = new JPanel(new GridLayout(1, 3, 20, 20));
         centralPanel.add(roomMGR);
-        centralPanel.add(guestMGR);
+        centralPanel.add(modifyOwnAccount);
         centralPanel.add(checkInOut);
         JPanel gidL = new JPanel(new GridBagLayout());
 

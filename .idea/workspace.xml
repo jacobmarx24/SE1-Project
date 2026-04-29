@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="login page connected with main menu">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/Room.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/RoomService.java" afterDir="false" />
+    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="added missing files">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Elias/files/UITheme.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkLoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkLoginFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkMenuFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkMenuFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkProfileFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkProfileFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/ModifyRoomStatesUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/ModifyRoomStatesUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/ClerkMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/ClerkMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/jacobmarx/RoomsAndReservation/ReservationServiceTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +64,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ClerkMenu.executor": "Run",
     "Application.Main.executor": "Run",
     "Node.js.HotelSystem.jsx.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
@@ -140,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777497068092</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added missing files">
+      <option name="closed" value="true" />
+      <created>1777498526472</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1777498526472</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +175,7 @@
     <MESSAGE value="chore: initial project setup&#10;&#10;- initialize git repository&#10;- add base project structure&#10;- configure IDE settings" />
     <MESSAGE value="Migrate from CSV-based storage to SQLite database" />
     <MESSAGE value="merged clerk modify profile and clerk login" />
-    <option name="LAST_COMMIT_MESSAGE" value="merged clerk modify profile and clerk login" />
+    <MESSAGE value="added missing files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added missing files" />
   </component>
 </project>

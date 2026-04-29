@@ -16,8 +16,14 @@ public class ModifyRoomStatesUI {
     private final JCheckBox smokingBox;
 
     private int selectedOriginalRoomNumber = -1;
+    private String[] clerkData;
 
     public ModifyRoomStatesUI(String csvFileName) {
+        this(csvFileName, null);
+    }
+
+    public ModifyRoomStatesUI(String csvFileName, String[] clerkData) {
+        this.clerkData = clerkData;
         roomService = new RoomService(csvFileName);
 
         frame = new JFrame("Modify Room States");
@@ -64,6 +70,7 @@ public class ModifyRoomStatesUI {
         JButton deleteButton = new JButton("Delete Room");
         JButton clearButton = new JButton("Clear");
         JButton saveButton = new JButton("Save to CSV");
+        JButton backButton = new JButton("Back");
 
         buttonPanel.add(loadButton);
         buttonPanel.add(addButton);
@@ -71,6 +78,7 @@ public class ModifyRoomStatesUI {
         buttonPanel.add(deleteButton);
         buttonPanel.add(clearButton);
         buttonPanel.add(saveButton);
+        buttonPanel.add(backButton);
 
         JPanel southPanel = new JPanel(new BorderLayout());
         southPanel.add(formPanel, BorderLayout.CENTER);
@@ -84,6 +92,10 @@ public class ModifyRoomStatesUI {
         deleteButton.addActionListener(e -> deleteRoom());
         clearButton.addActionListener(e -> clearForm());
         saveButton.addActionListener(e -> saveRooms());
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            kennethfalato.MainMenu.ClerkMenu.createUI(clerkData);
+        });
 
         frame.setVisible(true);
     }

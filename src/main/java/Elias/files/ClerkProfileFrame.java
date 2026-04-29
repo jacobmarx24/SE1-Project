@@ -84,9 +84,9 @@ public class ClerkProfileFrame extends JFrame {
         userName.setFont(UITheme.FONT_BODY);
         userName.setForeground(UITheme.TEXT_SEC);
 
-        JButton btnLogout = UITheme.ghostButton("Sign Out");
+        JButton btnLogout = UITheme.ghostButton("Back");
         btnLogout.setPreferredSize(new Dimension(90, 32));
-        btnLogout.addActionListener(e -> { dispose(); new ClerkLoginFrame(); });
+        btnLogout.addActionListener(e -> { dispose(); kennethfalato.MainMenu.ClerkMenu.createUI(clerkData); });
 
         right.add(userName);
         right.add(btnLogout);
