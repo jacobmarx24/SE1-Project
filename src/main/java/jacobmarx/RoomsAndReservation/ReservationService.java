@@ -1,58 +1,62 @@
 package jacobmarx.RoomsAndReservation;
 
-import jacobmarx.RoomsAndReservation.Reservation;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 public class ReservationService {
     private List<Reservation> reservations;
+    private final String filename;
 
-    public ReservationService(String filename){
-        reservations = new ArrayList<>();
+    public ReservationService(String filename) {
+        this.filename = filename.replace(".csv", ".xml");
+        this.reservations = new ArrayList<>();
 
-        //Read in the csv to fill reservations
-        Scanner scanner = null;
+        loadReservations();
+    }
+
+    private void loadReservations() {
+        File file = new File(filename);
+        if (!file.exists()) return;
+
         try {
-            scanner = new Scanner(new File(filename));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        scanner.nextLine(); //skip first line
-        //FORMAT: STARTDATE, ENDDATE, USERNAME, CHECKEDIN, ROOM#s...
-        while (scanner.hasNext()){
-            String[] parts = scanner.nextLine().split(",");
-            if (parts.length < 5) continue; // Basic validation
-            //turn the start and endDate into Date objects
-            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-            Date beginDate = new Date();
-            Date endDate = new Date();
-            try {
-                beginDate = format.parse(parts[0]);
-                endDate = format.parse(parts[1]);
-            } catch (ParseException e){
-                //csv was formatted incorrectly if this runs
-                e.printStackTrace();
-                System.exit(0);
-            }
-            String username = parts[2];
-            boolean checkedIn = Boolean.parseBoolean(parts[3].trim());
-            List<Integer> roomIds = new ArrayList<>();
-            for (int i = 4; i < parts.length; i++){
-                roomIds.add(Integer.parseInt(parts[i].trim()));
-            }
-            addReservation(new Reservation(username, beginDate, endDate, roomIds, checkedIn));
-        }
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
 
+            NodeList nodeList = doc.getElementsByTagName("reservation");
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+
+                    Date beginDate = format.parse(element.getElementsByTagName("startDate").item(0).getTextContent());
+                    Date endDate = format.parse(element.getElementsByTagName("endDate").item(0).getTextContent());
+                    String username = element.getElementsByTagName("username").item(0).getTextContent();
+                    boolean checkedIn = Boolean.parseBoolean(element.getElementsByTagName("checkedIn").item(0).getTextContent());
+
+                    List<Integer> roomIds = new ArrayList<>();
+                    NodeList roomNodes = element.getElementsByTagName("roomNumber");
+                    for (int j = 0; j < roomNodes.getLength(); j++) {
+                        roomIds.add(Integer.parseInt(roomNodes.item(j).getTextContent()));
+                    }
+                    addReservation(new Reservation(username, beginDate, endDate, roomIds, checkedIn));
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load reservations from XML: " + filename, e);
+        }
     }
 
     public List<Reservation> getReservations() {
@@ -107,20 +111,52 @@ public class ReservationService {
 
     public void saveAllReservations() {
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-        try (PrintWriter pw = new PrintWriter(new FileWriter("reservations.csv"))) {
-            pw.println("STARTDATE, ENDDATE, USERNAME, CHECKEDIN, ROOM#s");
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element rootElement = doc.createElement("reservations");
+            doc.appendChild(rootElement);
+
             for (Reservation res : reservations) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(format.format(res.getStartDate())).append(",")
-                  .append(format.format(res.getEndDate())).append(",")
-                  .append(res.getUsername()).append(",")
-                  .append(res.isCheckedIn());
+                Element resElement = doc.createElement("reservation");
+                rootElement.appendChild(resElement);
+
+                Element startDate = doc.createElement("startDate");
+                startDate.setTextContent(format.format(res.getStartDate()));
+                resElement.appendChild(startDate);
+
+                Element endDate = doc.createElement("endDate");
+                endDate.setTextContent(format.format(res.getEndDate()));
+                resElement.appendChild(endDate);
+
+                Element username = doc.createElement("username");
+                username.setTextContent(res.getUsername());
+                resElement.appendChild(username);
+
+                Element checkedIn = doc.createElement("checkedIn");
+                checkedIn.setTextContent(String.valueOf(res.isCheckedIn()));
+                resElement.appendChild(checkedIn);
+
+                Element rooms = doc.createElement("rooms");
+                resElement.appendChild(rooms);
+
                 for (Integer roomId : res.getRoomNums()) {
-                    sb.append(",").append(roomId);
+                    Element roomNumber = doc.createElement("roomNumber");
+                    roomNumber.setTextContent(String.valueOf(roomId));
+                    rooms.appendChild(roomNumber);
                 }
-                pw.println(sb.toString());
             }
-        } catch (IOException e) {
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filename));
+            transformer.transform(source, result);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -138,21 +174,7 @@ public class ReservationService {
     }
 
     public void updateReservationsCSV(String username, Date startDate, Date endDate, List<Integer> roomIds) {
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-        String startDateStr = format.format(startDate);
-        String endDateStr = format.format(endDate);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(startDateStr).append(",").append(endDateStr).append(",").append(username).append(",false");
-        for (Integer roomId : roomIds) {
-            sb.append(",").append(roomId);
-        }
-
-        try (FileWriter fw = new FileWriter("reservations.csv", true);
-             PrintWriter pw = new PrintWriter(fw)) {
-            pw.println(sb.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        addReservation(new Reservation(username, startDate, endDate, roomIds, false));
+        saveAllReservations();
     }
 }

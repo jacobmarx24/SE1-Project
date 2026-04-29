@@ -69,7 +69,7 @@ public class ClerkMenu {
 
         roomMGR.addActionListener(e -> {
             frame.dispose();
-            new jacobmarx.RoomsAndReservation.ModifyRoomStatesUI("rooms.csv", clerkData);
+            new jacobmarx.RoomsAndReservation.ModifyRoomStatesUI("rooms.xml", clerkData);
         });
 
         modifyOwnAccount.addActionListener(e -> {

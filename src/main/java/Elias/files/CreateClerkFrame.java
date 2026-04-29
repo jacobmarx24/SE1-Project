@@ -290,7 +290,7 @@ public class CreateClerkFrame extends JFrame {
 
     private void refreshTable() {
         tableModel.setRowCount(0);
-        List<String[]> rows = DatabaseHelper.readAll("clerks.csv");
+        List<String[]> rows = DatabaseHelper.readAll("clerks.xml");
         for (String[] r : rows) {
             if (r.length > 4)
                 tableModel.addRow(new Object[]{ r[1], r[2], r[4] });

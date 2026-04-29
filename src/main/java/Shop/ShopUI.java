@@ -3,14 +3,15 @@ package Shop;
 import kennethfalato.MainMenu.MainMenuUI;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class ShopUI {
 
@@ -112,7 +113,7 @@ public class ShopUI {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
-        loadCSV("products.csv");
+        loadCSV("products.xml");
         updateTable(allProducts);
 
         JPanel mainWrapper = new JPanel(new BorderLayout(0, 20));
@@ -145,7 +146,7 @@ public class ShopUI {
                 }
             }
             cart.getProducts().clear();
-            saveCSV("products.csv");
+            saveCSV("products.xml");
             frame.dispose();
             MainMenuUI.createUI();
         });
@@ -251,29 +252,31 @@ public class ShopUI {
 
     private static void loadCSV(String filePath) {
         allProducts.clear();
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) return;
 
-        try (
-            BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            boolean firstLine = true;
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
 
-            while ((line = br.readLine()) != null) {
-                if (firstLine) {
-                    firstLine = false;
-                    continue;
+            NodeList nodeList = doc.getElementsByTagName("product");
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+
+                    int id = Integer.parseInt(element.getElementsByTagName("id").item(0).getTextContent());
+                    String name = element.getElementsByTagName("name").item(0).getTextContent();
+                    double price = Double.parseDouble(element.getElementsByTagName("price").item(0).getTextContent());
+                    int stock = Integer.parseInt(element.getElementsByTagName("stock").item(0).getTextContent());
+
+                    allProducts.add(new Product(id, name, price, stock));
                 }
-
-                String[] data = line.split(",");
-
-                int id = Integer.parseInt(data[0]);
-                String name = data[1];
-                double price = Double.parseDouble(data[2]);
-                int inStock = Integer.parseInt(data[3]);
-
-                allProducts.add(new Product(id, name, price, inStock));
             }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -341,19 +344,48 @@ public class ShopUI {
             tableModel.addRow(new Object[] {false, product.getId(),product.getName(),product.getPrice(),
                     product.getInStock()});
         }
-        saveCSV("products.csv");
+        saveCSV("products.xml");
     }
 
     private static void saveCSV(String filePath) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-            writer.println("id,name,price,stock");
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element rootElement = doc.createElement("products");
+            doc.appendChild(rootElement);
 
             for (Product p : allProducts) {
-                writer.println(p.getCSV());
+                Element productElement = doc.createElement("product");
+                rootElement.appendChild(productElement);
+
+                Element id = doc.createElement("id");
+                id.setTextContent(String.valueOf(p.getId()));
+                productElement.appendChild(id);
+
+                Element name = doc.createElement("name");
+                name.setTextContent(p.getName());
+                productElement.appendChild(name);
+
+                Element price = doc.createElement("price");
+                price.setTextContent(String.valueOf(p.getPrice()));
+                productElement.appendChild(price);
+
+                Element stock = doc.createElement("stock");
+                stock.setTextContent(String.valueOf(p.getInStock()));
+                productElement.appendChild(stock);
             }
 
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "CSV failed.");
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filePath));
+            transformer.transform(source, result);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "XML save failed.");
         }
     }
 

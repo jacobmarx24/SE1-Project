@@ -199,7 +199,7 @@ public class ModifyRoomStatesUI {
 
     private void saveRooms() {
         roomService.saveRooms();
-        JOptionPane.showMessageDialog(frame, "Changes saved to rooms.csv.");
+        JOptionPane.showMessageDialog(frame, "Changes saved to rooms.xml.");
     }
 
     private Room buildRoomFromForm() {

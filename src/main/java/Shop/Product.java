@@ -47,7 +47,7 @@ public class Product {
         this.price = price;
     }
 
-    public String getCSV(){
+    public String getInfo(){
         return Integer.toString(id) + "," + name + "," + Double.toString(price)
         + "," + Integer.toString(inStock);
     }

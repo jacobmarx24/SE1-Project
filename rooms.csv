@@ -1,7 +1,0 @@
-NUMBER, ROOMTYPE, PRICE, SMOKING
-100, Comfort, 250.00, false
-101, Comfort, 120.00, false
-102, Comfort, 180.00, true
-103, Economy, 220.00, false
-104, Economy, 500.00, true
-105, Economy, 500.00, true

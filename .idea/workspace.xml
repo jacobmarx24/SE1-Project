@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="clerk menus connected">
+    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="login page connected with main menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/guests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products.csv" beforeDir="false" afterPath="$PROJECT_DIR$/products.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations.csv" beforeDir="false" afterPath="$PROJECT_DIR$/reservations.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkMenuFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/ClerkMenuFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Elias/files/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Elias/files/DatabaseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Shop/CartUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Shop/CartUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Shop/ShopUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Shop/ShopUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/MainMenuUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kennethfalato/MainMenu/MainMenuUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/ReservationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/ReservationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation/RoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "combined-branch2",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/jacobmarx/IdeaProjects/SE1-Project/src/main/java/jacobmarx/RoomsAndReservation",

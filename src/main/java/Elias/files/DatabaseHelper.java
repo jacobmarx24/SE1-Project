@@ -65,11 +65,11 @@ public class DatabaseHelper {
 
     /**
      * Returns every row from the requested table as String arrays.
-     * tableName may be "guests", "guests.csv", "clerks", or "clerks.csv"
-     * (the .csv suffix is accepted for backward-compatibility).
+     * tableName may be "guests", "guests.xml", "clerks", or "clerks.xml"
+     * (the .xml suffix is preferred).
      */
     public static List<String[]> readAll(String tableName) {
-        String name = tableName.replace(".csv", "").trim().toLowerCase();
+        String name = tableName.replace(".xml", "").replace(".csv", "").trim().toLowerCase();
         if (name.equals("guests")) return readAll(GUESTS_FILE, GUEST_FIELDS, "guest");
         if (name.equals("clerks")) return readAll(CLERKS_FILE, CLERK_FIELDS, "clerk");
         return new ArrayList<>();

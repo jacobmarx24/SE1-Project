@@ -1,5 +1,10 @@
 package jacobmarx.RoomsAndReservation;
 
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +14,7 @@ public class RoomService {
     private final String filename;
 
     public RoomService(String filename) {
-        this.filename = filename;
+        this.filename = filename.replace(".csv", ".xml");
         this.rooms = new ArrayList<>();
         loadRooms();
     }
@@ -22,28 +27,30 @@ public class RoomService {
             return;
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line = br.readLine(); // skip header
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            doc.getDocumentElement().normalize();
 
-            while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) {
-                    continue;
+            NodeList nodeList = doc.getElementsByTagName("room");
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+
+                    int number = Integer.parseInt(element.getElementsByTagName("number").item(0).getTextContent());
+                    String roomType = element.getElementsByTagName("roomType").item(0).getTextContent();
+                    double price = Double.parseDouble(element.getElementsByTagName("price").item(0).getTextContent());
+                    boolean smoking = Boolean.parseBoolean(element.getElementsByTagName("smoking").item(0).getTextContent());
+
+                    rooms.add(new Room(number, roomType, price, smoking));
                 }
-
-                String[] parts = line.split(",");
-                if (parts.length < 4) {
-                    continue;
-                }
-
-                int number = Integer.parseInt(parts[0].trim());
-                String roomType = parts[1].trim();
-                double price = Double.parseDouble(parts[2].trim());
-                boolean smoking = Boolean.parseBoolean(parts[3].trim());
-
-                rooms.add(new Room(number, roomType, price, smoking));
             }
-        } catch (IOException | NumberFormatException e) {
-            throw new RuntimeException("Failed to load rooms from CSV: " + filename, e);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load rooms from XML: " + filename, e);
         }
     }
 
@@ -96,18 +103,44 @@ public class RoomService {
     }
 
     public void saveRooms() {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(filename))) {
-            pw.println("NUMBER, ROOMTYPE, PRICE, SMOKING");
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element rootElement = doc.createElement("rooms");
+            doc.appendChild(rootElement);
 
             for (Room room : rooms) {
-                pw.printf("%d, %s, %.2f, %b%n",
-                        room.getNumber(),
-                        room.getRoomType(),
-                        room.getPrice(),
-                        room.isSmoking());
+                Element roomElement = doc.createElement("room");
+                rootElement.appendChild(roomElement);
+
+                Element number = doc.createElement("number");
+                number.setTextContent(String.valueOf(room.getNumber()));
+                roomElement.appendChild(number);
+
+                Element roomType = doc.createElement("roomType");
+                roomType.setTextContent(room.getRoomType());
+                roomElement.appendChild(roomType);
+
+                Element price = doc.createElement("price");
+                price.setTextContent(String.valueOf(room.getPrice()));
+                roomElement.appendChild(price);
+
+                Element smoking = doc.createElement("smoking");
+                smoking.setTextContent(String.valueOf(room.isSmoking()));
+                roomElement.appendChild(smoking);
             }
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to save rooms to CSV: " + filename, e);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filename));
+            transformer.transform(source, result);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save rooms to XML: " + filename, e);
         }
     }
 }

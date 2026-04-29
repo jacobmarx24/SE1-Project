@@ -135,7 +135,7 @@ public class AdminLoginFrame extends JFrame {
                 // Admin → open Create Clerk screen
                 dispose();
                 new CreateClerkFrame(clerk);
-                ModifyRoomStatesUI.openWindow("rooms.csv");
+                ModifyRoomStatesUI.openWindow("rooms.xml");
             } else {
                 // Regular clerk
                 dispose();

@@ -3,10 +3,13 @@ package Shop;
 import kennethfalato.MainMenu.MainMenuUI;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
 
 public class CartUI {
@@ -92,7 +95,7 @@ public class CartUI {
                 }
             }
             cart.getProducts().clear();
-            saveCSV("products.csv", allProducts);
+            saveCSV("products.xml", allProducts);
             frame.dispose();
             MainMenuUI.createUI();
         });
@@ -159,7 +162,7 @@ public class CartUI {
                 }
             }
             cart.getProducts().clear();
-            saveCSV("products.csv", allProducts);
+            saveCSV("products.xml", allProducts);
             updateTable(cart.getProducts());
             JOptionPane.showMessageDialog(frame, "Cart emptied and stock restored");
         });
@@ -182,7 +185,7 @@ public class CartUI {
                 }
             }
 
-            saveCSV("products.csv", allProducts);
+            saveCSV("products.xml", allProducts);
             updateTable(cart.getProducts());
 
             JOptionPane.showMessageDialog(frame, "Item(s) successfully removed from cart");
@@ -208,7 +211,7 @@ public class CartUI {
             if (choice == JOptionPane.YES_OPTION) {
                 Elias.files.BillService.addToBill(jacobmarx.ReserveRoom.RoomSelectionUI.currentUsername, total);
                 cart.getProducts().clear();
-                saveCSV("products.csv", allProducts);
+                saveCSV("products.xml", allProducts);
                 updateTable(cart.getProducts());
                 JOptionPane.showMessageDialog(frame, "Items purchased! The cost has been added to your bill.");
             }
@@ -263,16 +266,44 @@ public class CartUI {
     }
 
     private static void saveCSV(String filePath, List<Product> allProducts) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-            writer.println("id,name,price,stock");
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
 
-            for (Product product : allProducts) {
-                writer.println(
-                        product.getId() + "," + product.getName() + "," + product.getPrice() + "," + product.getInStock());
+            Element rootElement = doc.createElement("products");
+            doc.appendChild(rootElement);
+
+            for (Product p : allProducts) {
+                Element productElement = doc.createElement("product");
+                rootElement.appendChild(productElement);
+
+                Element id = doc.createElement("id");
+                id.setTextContent(String.valueOf(p.getId()));
+                productElement.appendChild(id);
+
+                Element name = doc.createElement("name");
+                name.setTextContent(p.getName());
+                productElement.appendChild(name);
+
+                Element price = doc.createElement("price");
+                price.setTextContent(String.valueOf(p.getPrice()));
+                productElement.appendChild(price);
+
+                Element stock = doc.createElement("stock");
+                stock.setTextContent(String.valueOf(p.getInStock()));
+                productElement.appendChild(stock);
             }
 
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not save products to CSV.");
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filePath));
+            transformer.transform(source, result);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Could not save products to XML.");
         }
     }
 

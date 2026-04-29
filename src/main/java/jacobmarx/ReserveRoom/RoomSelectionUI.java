@@ -120,8 +120,8 @@ public class RoomSelectionUI {
         String endDateStr = endDateBar.getText();
         if ("End Date (MM/DD/YYYY)".equals(endDateStr)) endDateStr = "";
 
-        RoomService rs = new RoomService("rooms.csv");
-        ReservationService resService = new ReservationService("reservations.csv");
+        RoomService rs = new RoomService("rooms.xml");
+        ReservationService resService = new ReservationService("reservations.xml");
         List<Room> allRooms = rs.getRooms();
         List<Room> filteredRooms = new ArrayList<>();
 
@@ -215,7 +215,7 @@ public class RoomSelectionUI {
                 return;
             }
 
-            ReservationService resService = new ReservationService("reservations.csv");
+            ReservationService resService = new ReservationService("reservations.xml");
             resService.updateReservationsCSV(currentUsername, startDate, endDate, selectedRoomIds);
             JOptionPane.showMessageDialog(null, "Reservation successful!");
         }
@@ -254,10 +254,10 @@ public class RoomSelectionUI {
         return new Date[]{startDate, endDate};
     }
 
-    //Helper method which reads rooms.csv and reservations.csv, updating the cols accordingly
+    //Helper method which reads rooms.xml and reservations.xml, updating the cols accordingly
     private static Object[][] loadCols(){
-        RoomService rs = new RoomService("rooms.csv");
-        ReservationService resService = new ReservationService("reservations.csv");
+        RoomService rs = new RoomService("rooms.xml");
+        ReservationService resService = new ReservationService("reservations.xml");
         List<Room> rooms = rs.getRooms();
         
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");

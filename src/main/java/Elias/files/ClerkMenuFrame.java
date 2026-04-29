@@ -26,8 +26,8 @@ public class ClerkMenuFrame extends JFrame {
 
     public ClerkMenuFrame(String[] clerkData) {
         this.clerkData = clerkData;
-        this.reservationService = new ReservationService("reservations.csv");
-        this.roomService = new RoomService("rooms.csv");
+        this.reservationService = new ReservationService("reservations.xml");
+        this.roomService = new RoomService("rooms.xml");
         UITheme.applyDefaults(this, "Clerk Menu — Aura Hotel", 900, 600);
         setLayout(new BorderLayout());
 

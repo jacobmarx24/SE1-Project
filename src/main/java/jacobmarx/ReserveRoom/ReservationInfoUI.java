@@ -22,7 +22,7 @@ public class ReservationInfoUI {
 
     public static void createUI() {
         username = RoomSelectionUI.currentUsername;
-        resService = new ReservationService("reservations.csv");
+        resService = new ReservationService("reservations.xml");
         List<Reservation> userReservations = resService.getReservationsByUsername(username);
 
         JFrame frame = new JFrame("Your Reservations");
