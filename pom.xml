@@ -8,25 +8,17 @@
     <artifactId>Ctrl-Alt-Defeat</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!--
+        No external dependencies needed.
+        XML parsing (javax.xml / org.w3c.dom) is part of the Java SE standard
+        library, so the sqlite-jdbc dependency has been removed.
+    -->
+    <dependencies/>
+
     <properties>
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.0</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
 </project>

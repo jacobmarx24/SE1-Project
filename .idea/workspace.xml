@@ -4,20 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4466bb75-a7c8-45a0-9445-d80beb22a770" name="Changes" comment="QOL change in make reservation">
+    <list default="true" id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="Migrate from CSV-based storage to SQLite database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/AdminLoginFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/files/AdminLoginFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/CreateClerkFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/files/CreateClerkFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/files/DatabaseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/GuestLoginFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/files/GuestLoginFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/GuestRegisterFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/files/GuestRegisterFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/files/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="37" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -30,304 +34,117 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;jacobmarx24&quot;
+    &quot;assignee&quot;: &quot;whyelias&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/jacobmarx24/SE1-Project&quot;,
-    &quot;accountId&quot;: &quot;7ad8bd3d-90b6-4567-b8e7-b349cd4a6a59&quot;
+    &quot;url&quot;: &quot;https://github.com/jacobmarx24/SE1-Project.git&quot;,
+    &quot;accountId&quot;: &quot;2d10045a-d37c-462b-a2dc-a20c74dc831e&quot;
   }
 }</component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="3BOfwWSoC51OzrDMWPP6kwKo7b3" />
+  <component name="ProjectId" id="3BSifsMNtDHr0n8OsURsBui8dMg" />
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Elias.files.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainMenuUI.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RoomSelectionUI.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ReservationServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.HotelSystem.jsx.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;GuestModifyReservation&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;RegisterAccount&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+    &quot;last_opened_file_path&quot;: &quot;/home/elias/IdeaProjects/SE1-Project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/main/java/Elias" />
-      <recent name="$PROJECT_DIR$/src/main/java/jacobmarx/RoomsAndReservation" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/java" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/files" />
     </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.ReservationServiceTest">
-    <configuration name="Elias.files.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Elias.files.Main" />
-      <module name="Ctrl-Alt-Defeat" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Elias.files.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="Ctrl-Alt-Defeat" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="jacobmarx.RoomsAndReservation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainMenuUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="kennethfalato.MainMenu.MainMenuUI" />
-      <module name="Ctrl-Alt-Defeat" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kennethfalato.MainMenu.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ReservationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Ctrl-Alt-Defeat" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="jacobmarx.RoomsAndReservation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="jacobmarx.RoomsAndReservation" />
-      <option name="MAIN_CLASS_NAME" value="jacobmarx.RoomsAndReservation.ReservationServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="SE1-Project" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="SE1-Project" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.ReservationServiceTest" />
-        <item itemvalue="Application.Elias.files.Main" />
-        <item itemvalue="Application.MainMenuUI" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.MainMenuUI" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4466bb75-a7c8-45a0-9445-d80beb22a770" name="Changes" comment="" />
-      <created>1774365275390</created>
+      <changelist id="97fd01da-f501-440f-82be-942213c971e3" name="Changes" comment="" />
+      <created>1774488978610</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1774365275390</updated>
+      <updated>1774488978610</updated>
+      <workItem from="1775002670458" duration="11000" />
+      <workItem from="1775082906063" duration="2881000" />
+      <workItem from="1775242994910" duration="1802000" />
+      <workItem from="1775663453645" duration="12000" />
+      <workItem from="1775708889209" duration="86000" />
+      <workItem from="1775708996432" duration="8000" />
+      <workItem from="1775782353717" duration="935000" />
+      <workItem from="1775791206828" duration="1191000" />
+      <workItem from="1776126311956" duration="12000" />
+      <workItem from="1776192860449" duration="3388000" />
+      <workItem from="1776377507949" duration="552000" />
     </task>
-    <task id="LOCAL-00001" summary="Starter Maven files">
+    <task id="LOCAL-00001" summary="chore: initial project setup&#10;&#10;- initialize git repository&#10;- add base project structure&#10;- configure IDE settings">
       <option name="closed" value="true" />
-      <created>1774365349717</created>
+      <created>1774489189019</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1774365349717</updated>
+      <updated>1774489189019</updated>
     </task>
-    <task id="LOCAL-00002" summary="Basic UI Implemented">
+    <task id="LOCAL-00002" summary="Migrate from CSV-based storage to SQLite database">
       <option name="closed" value="true" />
-      <created>1774393617876</created>
+      <created>1775791525090</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1774393617876</updated>
+      <updated>1775791525090</updated>
     </task>
-    <task id="LOCAL-00003" summary="Search bar added">
-      <option name="closed" value="true" />
-      <created>1774402878850</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1774402878850</updated>
-    </task>
-    <task id="LOCAL-00004" summary="multiple search criteria added, moved to bottom of screen">
-      <option name="closed" value="true" />
-      <created>1774466529739</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1774466529739</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Reservation and Room objects created, no csv to read to create these objects yet">
-      <option name="closed" value="true" />
-      <created>1774469258859</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1774469258859</updated>
-    </task>
-    <task id="LOCAL-00006" summary="RoomService and ReservationService created, they read csv files">
-      <option name="closed" value="true" />
-      <created>1774480498329</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1774480498329</updated>
-    </task>
-    <task id="LOCAL-00007" summary="commiting noGit">
-      <option name="closed" value="true" />
-      <created>1774488884782</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1774488884782</updated>
-    </task>
-    <task id="LOCAL-00008" summary="relocating Main.java's file path to be more reasonable">
-      <option name="closed" value="true" />
-      <created>1774905414629</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1774905414629</updated>
-    </task>
-    <task id="LOCAL-00009" summary="added try catches to file reading">
-      <option name="closed" value="true" />
-      <created>1774906726624</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1774906726624</updated>
-    </task>
-    <task id="LOCAL-00010" summary="loadCols completed">
-      <option name="closed" value="true" />
-      <created>1774906933987</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1774906933987</updated>
-    </task>
-    <task id="LOCAL-00011" summary="implemented searching and reserving rooms">
-      <option name="closed" value="true" />
-      <created>1774908633215</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1774908633215</updated>
-    </task>
-    <task id="LOCAL-00012" summary="merged login page">
-      <option name="closed" value="true" />
-      <created>1775090273797</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1775090273797</updated>
-    </task>
-    <task id="LOCAL-00013" summary="login page connected with main menu">
-      <option name="closed" value="true" />
-      <created>1775091475974</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1775091475974</updated>
-    </task>
-    <task id="LOCAL-00014" summary="reservations now have a username attached">
-      <option name="closed" value="true" />
-      <created>1776196660320</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1776196660320</updated>
-    </task>
-    <task id="LOCAL-00015" summary="modify reservations menu added, accessable from guest main menu">
-      <option name="closed" value="true" />
-      <created>1776197700216</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1776197700216</updated>
-    </task>
-    <task id="LOCAL-00016" summary="implemented clerk modifying reservations use case">
-      <option name="closed" value="true" />
-      <created>1777306365135</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1777306365135</updated>
-    </task>
-    <task id="LOCAL-00017" summary="QOL change in make reservation">
-      <option name="closed" value="true" />
-      <created>1777492518405</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1777492518405</updated>
-    </task>
-    <option name="localTasksCounter" value="18" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Starter Maven files" />
-    <MESSAGE value="Basic UI Implemented" />
-    <MESSAGE value="Search bar added" />
-    <MESSAGE value="multiple search criteria added, moved to bottom of screen" />
-    <MESSAGE value="Reservation and Room objects created, no csv to read to create these objects yet" />
-    <MESSAGE value="RoomService and ReservationService created, they read csv files" />
-    <MESSAGE value="commiting noGit" />
-    <MESSAGE value="relocating Main.java's file path to be more reasonable" />
-    <MESSAGE value="added try catches to file reading" />
-    <MESSAGE value="loadCols completed" />
-    <MESSAGE value="implemented searching and reserving rooms" />
-    <MESSAGE value="merged login page" />
-    <MESSAGE value="login page connected with main menu" />
-    <MESSAGE value="reservations now have a username attached" />
-    <MESSAGE value="modify reservations menu added, accessable from guest main menu" />
-    <MESSAGE value="implemented clerk modifying reservations use case" />
-    <MESSAGE value="QOL change in make reservation" />
-    <option name="LAST_COMMIT_MESSAGE" value="QOL change in make reservation" />
+    <MESSAGE value="chore: initial project setup&#10;&#10;- initialize git repository&#10;- add base project structure&#10;- configure IDE settings" />
+    <MESSAGE value="Migrate from CSV-based storage to SQLite database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Migrate from CSV-based storage to SQLite database" />
   </component>
 </project>
