@@ -1,5 +1,6 @@
 import Elias.files.AdminLoginFrame;
 import Elias.files.GuestLoginFrame;
+import Elias.files.ClerkLoginFrame;
 
 import javax.swing.*;
 
@@ -17,6 +18,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             new GuestLoginFrame();   // Guest login (with register link)
             new AdminLoginFrame();   // Staff / admin login
+            new ClerkLoginFrame();
         });
     }
 }

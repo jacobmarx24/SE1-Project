@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <clerks>
+    
   <clerk>
+        
     <id>1776195087002</id>
+        
     <fullName>System Admin</fullName>
+        
     <username>admin</username>
+        
     <password>admin123</password>
+        
     <role>admin</role>
+        
     <permissions>manage_clerks|view_reports|manage_bookings</permissions>
+        
     <createdAt>2026-04-14</createdAt>
+      
+  </clerk>
+  
+  <clerk>
+    <id>1777497001027</id>
+    <fullName>Jacob Marx</fullName>
+    <username>jmarx</username>
+    <password>Password</password>
+    <role>clerk</role>
+    <permissions>view_bookings|manage_bookings|check_in_out|view_reports|manage_rooms</permissions>
+    <createdAt>2026-04-29</createdAt>
   </clerk>
 </clerks>

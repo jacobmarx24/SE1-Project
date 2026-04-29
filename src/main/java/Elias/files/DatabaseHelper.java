@@ -1,3 +1,5 @@
+package Elias.files;
+
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
@@ -117,6 +119,27 @@ public class DatabaseHelper {
         data.put("permissions", permissions);
         data.put("createdAt",   today());
         appendRecord(CLERKS_FILE, "clerks", "clerk", data);
+    }
+
+    public static void updateClerk(String id, String fullName, String password,
+                                   String role, String permissions) {
+        try {
+            Document doc = parse(CLERKS_FILE);
+            NodeList nodes = doc.getElementsByTagName("clerk");
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Element el = (Element) nodes.item(i);
+                if (text(el, "id").equals(id)) {
+                    el.getElementsByTagName("fullName").item(0).setTextContent(fullName);
+                    el.getElementsByTagName("password").item(0).setTextContent(password);
+                    el.getElementsByTagName("role").item(0).setTextContent(role);
+                    el.getElementsByTagName("permissions").item(0).setTextContent(permissions);
+                    save(doc, CLERKS_FILE);
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // ═══════════════════════════════════════════════════════════════════════
