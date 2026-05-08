@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <products>
   <product>
     <id>1001</id>
     <name>toothbrush</name>
     <price>2.75</price>
-    <stock>1</stock>
+    <stock>0</stock>
   </product>
   <product>
     <id>1002</id>
@@ -15,7 +16,7 @@
     <id>1003</id>
     <name>soap</name>
     <price>1.75</price>
-    <stock>22</stock>
+    <stock>21</stock>
   </product>
   <product>
     <id>1004</id>

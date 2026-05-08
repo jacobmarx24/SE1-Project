@@ -1,45 +1,248 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <guests>
-        
+                                  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   <guest>
-                
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <id>1776195243105</id>
-                
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <fullName>Elias Tovar</fullName>
-                
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <username>etovar02</username>
-                
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <password>Password1</password>
-                
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <email>elias@hotel.org</email>
-                
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <phone>777-777-7777</phone>
-                
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <createdAt>2026-04-14</createdAt>
-              
+                                                                  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <bill>0.0</bill>
-          
+                                                              
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   </guest>
-      
+                                
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <guest>
+                        
+    
+    
+    
+    
+    <id>1777560130503</id>
+                        
+    
+    
+    
+    
+    <fullName>Jacob Marx</fullName>
+                        
+    
+    
+    
+    
+    <username>jmarx1</username>
+                        
+    
+    
+    
+    
+    <password>Password</password>
+                        
+    
+    
+    
+    
+    <email>jacob@gmail.com</email>
+                        
+    
+    
+    
+    
+    <phone>4699809963</phone>
+                        
+    
+    
+    
+    
+    <createdAt>2026-04-30</createdAt>
+                        
+    
+    
+    
+    
+    <bill>20.0</bill>
+                      
+  
+  
+  
+  
+  </guest>
+          
+
+
 
 
 </guests>

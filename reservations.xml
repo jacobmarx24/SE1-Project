@@ -1,2 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <reservations>
+  <reservation>
+    <startDate>05/03/2026</startDate>
+    <endDate>05/06/2026</endDate>
+    <username>jmarx1</username>
+    <checkedIn>true</checkedIn>
+    <rooms>
+      <roomNumber>101</roomNumber>
+    </rooms>
+  </reservation>
 </reservations>

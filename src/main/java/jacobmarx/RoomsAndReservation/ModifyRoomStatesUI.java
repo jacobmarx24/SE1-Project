@@ -69,7 +69,7 @@ public class ModifyRoomStatesUI {
         JButton updateButton = new JButton("Update Room");
         JButton deleteButton = new JButton("Delete Room");
         JButton clearButton = new JButton("Clear");
-        JButton saveButton = new JButton("Save to CSV");
+        JButton saveButton = new JButton("Save");
         JButton backButton = new JButton("Back");
 
         buttonPanel.add(loadButton);

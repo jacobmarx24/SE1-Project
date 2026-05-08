@@ -1,7 +1,5 @@
 package Elias.files;
 
-import jacobmarx.RoomsAndReservation.ModifyRoomStatesUI;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -95,13 +93,6 @@ public class AdminLoginFrame extends JFrame {
         card.add(btnLogin);
         card.add(Box.createVerticalStrut(14));
 
-        // ── Helper note ───────────────────────────────────────────────────────
-        JLabel hint = new JLabel("Default admin: admin / admin123");
-        hint.setFont(UITheme.FONT_SMALL);
-        hint.setForeground(new Color(0xD1D5DB));
-        hint.setAlignmentX(LEFT_ALIGNMENT);
-        card.add(hint);
-
         getRootPane().setDefaultButton(btnLogin);
 
         outer.add(card, new GridBagConstraints());
@@ -135,7 +126,6 @@ public class AdminLoginFrame extends JFrame {
                 // Admin → open Create Clerk screen
                 dispose();
                 new CreateClerkFrame(clerk);
-                ModifyRoomStatesUI.openWindow("rooms.xml");
             } else {
                 // Regular clerk
                 dispose();
